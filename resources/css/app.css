@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* Color Variables */
+:root {
+    --gem-navy: #0f2038;
+    --gem-navy-light: #183152;
+    --gem-emerald: #084c3c;
+    --gem-ruby: #8a1329;
+    --gem-gold: #d4af37;
+    --gem-gold-hover: #bda030;
+    --gem-gold-light: #fbf9f2;
+    --gem-cream: #faf9f6;
+    --gem-white: #ffffff;
+    --gem-dark: #1e2229;
+    --gem-gray: #5e6672;
+    --gem-gray-light: #e9ecef;
+}
+
+/* Base Styles Override */
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--gem-cream);
+    color: var(--gem-dark);
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.cinzel-font {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: var(--gem-navy);
+}
+
+/* Button Custom Styles */
+.btn-gold {
+    background-color: var(--gem-gold);
+    color: var(--gem-navy);
+    font-weight: 600;
+    border: 1px solid var(--gem-gold);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+    background-color: var(--gem-gold-hover);
+    border-color: var(--gem-gold-hover);
+    color: var(--gem-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+}
+
+.btn-navy {
+    background-color: var(--gem-navy);
+    color: var(--gem-white);
+    border: 1px solid var(--gem-navy);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-navy:hover {
+    background-color: var(--gem-navy-light);
+    border-color: var(--gem-navy-light);
+    color: var(--gem-white);
+    transform: translateY(-2px);
+}
+
+.btn-outline-gold {
+    border: 1px solid var(--gem-gold);
+    color: var(--gem-gold);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+    background-color: var(--gem-gold);
+    color: var(--gem-navy);
+}
+
+/* Header & Navigation Styles */
+.top-announcement {
+    background-color: var(--gem-navy);
+    color: var(--gem-white);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.middle-header {
+    background-color: var(--gem-white);
+    border-bottom: 1px solid var(--gem-gray-light);
+}
+
+.nav-bar-custom {
+    background-color: var(--gem-navy-light);
+}
+
+.nav-bar-custom .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 1.25rem !important;
+    transition: all 0.2s ease;
+}
+
+.nav-bar-custom .nav-link:hover,
+.nav-bar-custom .nav-link.active {
+    color: var(--gem-gold) !important;
+}
+
+/* Banner Slider */
+.hero-slider {
+    background-color: var(--gem-navy);
+    position: relative;
+    overflow: hidden;
+    height: 480px;
+}
+
+.hero-slider img {
+    object-fit: cover;
+    opacity: 0.5;
+    height: 100%;
+    width: 100%;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: var(--gem-white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-subtitle {
+    color: var(--gem-gold);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+/* Astro Gemstone Finder Tool */
+.astro-card-wrapper {
+    background: linear-gradient(135deg, #0e1e30 0%, #06111e 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.zodiac-grid-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 1.25rem;
+}
+
+.zodiac-grid-item:hover,
+.zodiac-grid-item.active {
+    border-color: var(--gem-gold);
+    background-color: rgba(212, 175, 55, 0.1);
+    transform: scale(1.05);
+}
+
+.benefit-pill {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: #fff;
+}
+
+.benefit-pill:hover,
+.benefit-pill.active {
+    background-color: var(--gem-gold);
+    color: var(--gem-navy);
+    border-color: var(--gem-gold);
+}
+
+/* Gem Product Cards */
+.gem-card {
+    background-color: var(--gem-white);
+    border-radius: 12px;
+    border: 1px solid var(--gem-gray-light);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.gem-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(15, 32, 56, 0.1);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.gem-card .img-container {
+    height: 240px;
+    position: relative;
+    background-color: #fafafa;
+    overflow: hidden;
+}
+
+.gem-card .img-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gem-card:hover .img-container img {
+    transform: scale(1.1);
+}
+
+.gem-tag-certified {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: var(--gem-emerald);
+    color: var(--gem-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+}
+
+.gem-badge-weight {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background-color: rgba(15, 32, 56, 0.85);
+    color: var(--gem-white);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.gem-card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.gem-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gem-navy);
+}
+
+/* Floating Elements */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) rotate(10deg);
+    color: white;
+}
+
+/* Sliding Cart Drawer */
+.cart-drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.cart-drawer-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 420px;
+    max-width: 100%;
+    background-color: var(--gem-white);
+    z-index: 1060;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-drawer.show {
+    transform: translateX(0);
+}
+
+.cart-drawer-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--gem-gray-light);
+    background-color: var(--gem-navy);
+    color: var(--gem-white);
+}
+
+.cart-drawer-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.cart-drawer-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--gem-gray-light);
+    background-color: var(--gem-gold-light);
+}
+
+/* Trust Badges Grid */
+.trust-badge-card {
+    background-color: var(--gem-white);
+    border: 1px solid var(--gem-gray-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.trust-badge-card:hover {
+    border-color: var(--gem-gold);
+    transform: translateY(-5px);
+}
+
+.trust-badge-icon {
+    font-size: 2.25rem;
+    color: var(--gem-gold);
+    margin-bottom: 0.75rem;
+}
+
+/* Details Page Specs Table */
+.specs-table th {
+    background-color: var(--gem-navy);
+    color: var(--gem-white);
+    font-weight: 500;
+}
+
+.specs-table td {
+    font-weight: 500;
+}
+
+.gallery-thumbnail {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.gallery-thumbnail.active,
+.gallery-thumbnail:hover {
+    border-color: var(--gem-gold);
+}
+
+/* Cloak utility for Alpine & Livewire */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Mega Dropdown Menu Styles */
+.mega-menu-dropdown {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    border-top: 4px solid #ff5a36 !important;
+    /* Premium orange-red accent top border as in image */
+    background-color: #fafafa !important;
+    /* Light off-white background matching image */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+    border-bottom: 1px solid #eaeaea !important;
+    padding: 2rem 0 !important;
+}
+
+.mega-menu-dropdown .mega-title {
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    color: #1e2229 !important;
+    /* Charcoal black matching image titles */
+    text-transform: uppercase;
+    font-family: 'Outfit', sans-serif !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.mega-menu-dropdown .mega-title-link {
+    color: #1e2229 !important;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.15s ease;
+}
+
+.mega-menu-dropdown .mega-title-link:hover {
+    color: #ff5a36 !important;
+}
+
+.mega-menu-dropdown .mega-new-tag {
+    color: #ff5a36;
+    font-size: 0.65rem;
+    font-weight: 600;
+    vertical-align: super;
+    margin-left: 3px;
+    text-transform: none;
+}
+
+.mega-menu-dropdown .mega-list li {
+    margin-bottom: 0.4rem;
+}
+
+.mega-menu-dropdown .mega-list a {
+    color: #495057 !important;
+    text-decoration: none;
+    font-size: 0.8rem !important;
+    /* Slightly smaller to match compact list in image */
+    font-weight: 400;
+    transition: all 0.15s ease;
+    font-family: 'Outfit', sans-serif !important;
+    display: inline-block;
+}
+
+.mega-menu-dropdown .mega-list a:hover {
+    color: #ff5a36 !important;
+    /* Hover color matches the accent top border */
+    transform: translateX(2px);
+}
+
+.mega-menu-dropdown .mega-view-all {
+    color: #ff5a36 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 4px;
+    font-weight: 500;
+    font-size: 0.8rem !important;
+    font-family: 'Outfit', sans-serif !important;
+    transition: color 0.15s ease;
+}
+
+.mega-menu-dropdown .mega-view-all:hover {
+    color: #e03e1b !important;
+}
+
+/* Responsive columns with borders */
+@media (min-width: 992px) {
+    .mega-menu-dropdown .mega-col {
+        border-right: 1px solid #e9ecef;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .mega-menu-dropdown .mega-col-last {
+        border-right: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .mega-menu-dropdown .mega-col {
+        border-bottom: 1px solid #e9ecef;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .mega-menu-dropdown .mega-col:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Desktop Hover Toggle */
+@media (min-width: 992px) {
+    .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+        animation: slideDownFade 0.25s ease forwards;
+    }
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

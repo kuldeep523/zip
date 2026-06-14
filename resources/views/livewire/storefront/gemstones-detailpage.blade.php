@@ -732,11 +732,11 @@
         }
     </style>
 
-    <h2 class="sr-only">Blue Star  Stone (Manik) — product page with tabs and filters</h2>
+    <h2 class="sr-only">{{ $currentCategory->name ?? 'Gemstone' }} ({{ $currentCategory->name ?? 'Gemstone' }}) — product page with tabs and filters</h2>
 
 
 
-    <!-- Blue Star  Intro Section -->
+    <!-- {{ $currentCategory->name ?? 'Gemstone' }}  Intro Section -->
     <section class="gemstone-intro" style="padding: 30px;">
         <div class="container">
 
@@ -751,22 +751,22 @@
                             <span>/</span>
                             <a href="#">Gemstones</a>
                             <span>/</span>
-                            <span>Blue Star  Stone</span>
+                            <span>{{ $currentCategory->name ?? 'Gemstone' }}</span>
                         </div>
 
                         <h1>
-                            Blue Star  Stone
-                            <span>(Manik Stone)</span>
+                            {{ $currentCategory->name ?? 'Gemstone' }}
+                            <span>({{ $currentCategory->name ?? 'Gemstone' }})</span>
                         </h1>
 
                         <p>
-                            Blue Star , known as Manik in Vedic Astrology, is one of the most
+                            {{ $currentCategory->name ?? 'Gemstone' }} , known as {{ $currentCategory->name ?? 'Gemstone' }} in Vedic Astrology, is one of the most
                             admired gemstones in the world. Its rich red color symbolizes
                             confidence, leadership, success, and vitality.
                         </p>
 
                         <p>
-                            Associated with the Sun, Blue Star  is believed to enhance personal
+                            Associated with the Sun, {{ $currentCategory->name ?? 'Gemstone' }}  is believed to enhance personal
                             power, attract recognition, and bring positive energy into life.
                             It remains one of the most sought-after gemstones for both its
                             beauty and astrological significance.
@@ -826,10 +826,10 @@
 
      <!-- About -->
     <div id="panel-0" class="tab-panel" role="tabpanel">
-        <div class="tc-title">About Blue Star  (Manik stone)</div>
+        <div class="tc-title">About {{ $currentCategory->name ?? 'Gemstone' }}  ({{ $currentCategory->name ?? 'Gemstone' }} stone)</div>
         <div class="tc-body">
-            <p>Blue Star , known as Manik in Hindi, is a variety of the mineral corundum (aluminum oxide) and gets its stunning red color from chromium. It is one of the four precious gemstones alongside diamond, emerald, and sapphire.</p>
-            <p>In Vedic astrology, Blue Star  is the gemstone of the Sun (Surya) and is worn to strengthen the Sun's position in the birth chart. A strong Sun brings leadership, confidence, and vitality.</p>
+            <p>{{ $currentCategory->name ?? 'Gemstone' }} , known as {{ $currentCategory->name ?? 'Gemstone' }} in Hindi, is a variety of the mineral corundum (aluminum oxide) and gets its stunning red color from chromium. It is one of the four precious gemstones alongside diamond, emerald, and sapphire.</p>
+            <p>In Vedic astrology, {{ $currentCategory->name ?? 'Gemstone' }}  is the gemstone of the Sun (Surya) and is worn to strengthen the Sun's position in the birth chart. A strong Sun brings leadership, confidence, and vitality.</p>
             <p>Natural rubies are found worldwide, with the most prized specimens from Burma (Myanmar), known for their "pigeon blood" red color. Other sources include Sri Lanka, Thailand, Mozambique, and Madagascar.</p>
             <ul>
                 <li>Hardness: 9 on the Mohs scale — second only to diamond</li>
@@ -842,9 +842,9 @@
 
     <!-- Benefits -->
     <div id="panel-1" class="tab-panel" role="tabpanel">
-        <div class="tc-title">Benefits of wearing Blue Star </div>
+        <div class="tc-title">Benefits of wearing {{ $currentCategory->name ?? 'Gemstone' }} </div>
         <div class="tc-body">
-            <p>Blue Star  is believed to bring physical, emotional, and spiritual benefits to its wearer when worn correctly.</p>
+            <p>{{ $currentCategory->name ?? 'Gemstone' }}  is believed to bring physical, emotional, and spiritual benefits to its wearer when worn correctly.</p>
         </div>
         <div class="b-grid">
             <div class="b-card"><i class="ti ti-sun" aria-hidden="true"></i>
@@ -888,14 +888,14 @@
 
     <!-- Who should wear -->
     <div id="panel-2" class="tab-panel" role="tabpanel">
-        <div class="tc-title">Who should wear Blue Star ?</div>
+        <div class="tc-title">Who should wear {{ $currentCategory->name ?? 'Gemstone' }} ?</div>
         <div class="tc-body">
-            <p>Blue Star  is primarily recommended for people with a weak or afflicted Sun in their birth chart. Always consult a qualified astrologer before wearing.</p>
+            <p>{{ $currentCategory->name ?? 'Gemstone' }}  is primarily recommended for people with a weak or afflicted Sun in their birth chart. Always consult a qualified astrologer before wearing.</p>
         </div>
         <div class="who-grid">
             <div class="who-card">
                 <div class="who-label">Recommended zodiac</div>
-                <p>Leo (Simha Rashi) — the Sun is the ruling planet of Leo, making Blue Star  the ideal gemstone.</p>
+                <p>Leo (Simha Rashi) — the Sun is the ruling planet of Leo, making {{ $currentCategory->name ?? 'Gemstone' }}  the ideal gemstone.</p>
             </div>
             <div class="who-card">
                 <div class="who-label">Also suitable for</div>
@@ -907,23 +907,23 @@
             </div>
             <div class="who-card">
                 <div class="who-label">Avoid if</div>
-                <p>Sun is lord of the 3rd, 8th, or 12th house. Taurus and Libra ascendants should generally avoid Blue Star .</p>
+                <p>Sun is lord of the 3rd, 8th, or 12th house. Taurus and Libra ascendants should generally avoid {{ $currentCategory->name ?? 'Gemstone' }} .</p>
             </div>
         </div>
     </div>
 
     <!-- How to wear -->
     <div id="panel-3" class="tab-panel" role="tabpanel">
-        <div class="tc-title">How to wear Blue Star </div>
+        <div class="tc-title">How to wear {{ $currentCategory->name ?? 'Gemstone' }} </div>
         <div class="tc-body">
-            <p>For maximum astrological benefit, Blue Star  must be worn following the correct ritual procedure.</p>
+            <p>For maximum astrological benefit, {{ $currentCategory->name ?? 'Gemstone' }}  must be worn following the correct ritual procedure.</p>
         </div>
         <div class="steps">
             <div class="step">
                 <div class="step-num">1</div>
                 <div>
                     <div class="step-title">Choose the right metal</div>
-                    <div class="step-text">Blue Star  should be set in gold (preferably 22kt). Silver or panchdhatu can also be used as alternatives.</div>
+                    <div class="step-text">{{ $currentCategory->name ?? 'Gemstone' }}  should be set in gold (preferably 22kt). Silver or panchdhatu can also be used as alternatives.</div>
                 </div>
             </div>
             <div class="step">
@@ -958,7 +958,7 @@
                 <div class="step-num">6</div>
                 <div>
                     <div class="step-title">Minimum weight</div>
-                    <div class="step-text">The Blue Star  should weigh at least 3 carats (approx. 3.3 ratti) for noticeable astrological effects.</div>
+                    <div class="step-text">The {{ $currentCategory->name ?? 'Gemstone' }}  should weigh at least 3 carats (approx. 3.3 ratti) for noticeable astrological effects.</div>
                 </div>
             </div>
         </div>
@@ -968,7 +968,7 @@
     <div id="panel-4" class="tab-panel" role="tabpanel">
         <div class="tc-title">Price & quality</div>
         <div class="tc-body">
-            <p>Blue Star  price depends on color, clarity, cut, carat, origin, and treatment. "Pigeon blood" rubies from Burma command the highest prices.</p>
+            <p>{{ $currentCategory->name ?? 'Gemstone' }}  price depends on color, clarity, cut, carat, origin, and treatment. "Pigeon blood" rubies from Burma command the highest prices.</p>
         </div>
         <table class="price-tbl">
             <thead>
@@ -1013,7 +1013,7 @@
     <div id="panel-5" class="tab-panel" role="tabpanel">
         <div class="tc-title">Buyer beware</div>
         <div class="tc-body">
-            <p>The Blue Star  market has many imitations and treated stones sold as natural. Watch out for these common issues.</p>
+            <p>The {{ $currentCategory->name ?? 'Gemstone' }}  market has many imitations and treated stones sold as natural. Watch out for these common issues.</p>
         </div>
         <div class="warn-list">
             <div class="warn-item"><i class="ti ti-alert-circle" aria-hidden="true"></i>
@@ -1023,7 +1023,7 @@
                 <p>Glass-filled rubies have fractures filled with lead glass to improve transparency. These are low-quality and damage easily.</p>
             </div>
             <div class="warn-item"><i class="ti ti-alert-circle" aria-hidden="true"></i>
-                <p>Spinel and garnet are commonly sold as Blue Star . Both are red gemstones but have very different properties and values.</p>
+                <p>Spinel and garnet are commonly sold as {{ $currentCategory->name ?? 'Gemstone' }} . Both are red gemstones but have very different properties and values.</p>
             </div>
             <div class="warn-item"><i class="ti ti-alert-circle" aria-hidden="true"></i>
                 <p>Heavily heated rubies are worth significantly less than unheated stones. A "no heat" certificate adds substantial value.</p>
@@ -1039,31 +1039,31 @@
         <div class="tc-title">Frequently asked questions</div>
         <div class="faq-list">
             <div class="faq-item">
-                <button class="faq-q" onclick="toggleFaq(this)">Can I wear Blue Star  without consulting an astrologer?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
+                <button class="faq-q" onclick="toggleFaq(this)">Can I wear {{ $currentCategory->name ?? 'Gemstone' }}  without consulting an astrologer?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
                 <div class="faq-a">
-                    <p>It is strongly advised to consult a qualified Vedic astrologer before wearing Blue Star . Wearing it with a malefic Sun can amplify negative effects rather than positive ones.</p>
+                    <p>It is strongly advised to consult a qualified Vedic astrologer before wearing {{ $currentCategory->name ?? 'Gemstone' }} . Wearing it with a malefic Sun can amplify negative effects rather than positive ones.</p>
                 </div>
             </div>
             <div class="faq-item">
-                <button class="faq-q" onclick="toggleFaq(this)">How do I know if my Blue Star  is real?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
+                <button class="faq-q" onclick="toggleFaq(this)">How do I know if my {{ $currentCategory->name ?? 'Gemstone' }}  is real?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
                 <div class="faq-a">
                     <p>The most reliable way is to get a certificate from GIA, GRS, or Gubelin. Real rubies have a hardness of 9 and will not scratch easily. A UV lamp test can also help identify glass-filled stones.</p>
                 </div>
             </div>
             <div class="faq-item">
-                <button class="faq-q" onclick="toggleFaq(this)">How long does Blue Star  take to show its effects?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
+                <button class="faq-q" onclick="toggleFaq(this)">How long does {{ $currentCategory->name ?? 'Gemstone' }}  take to show its effects?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
                 <div class="faq-a">
-                    <p>Most people begin to notice effects within 30 to 90 days of wearing Blue Star  correctly. The stone should ideally be worn continuously for at least one year for full astrological benefit.</p>
+                    <p>Most people begin to notice effects within 30 to 90 days of wearing {{ $currentCategory->name ?? 'Gemstone' }}  correctly. The stone should ideally be worn continuously for at least one year for full astrological benefit.</p>
                 </div>
             </div>
             <div class="faq-item">
-                <button class="faq-q" onclick="toggleFaq(this)">Can Blue Star  be worn with other gemstones?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
+                <button class="faq-q" onclick="toggleFaq(this)">Can {{ $currentCategory->name ?? 'Gemstone' }}  be worn with other gemstones?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
                 <div class="faq-a">
-                    <p>Blue Star  should not be combined with blue sapphire, hessonite (gomed), or cat's eye, as these belong to planets that are enemies of the Sun. Pearl and red coral are generally compatible.</p>
+                    <p>{{ $currentCategory->name ?? 'Gemstone' }}  should not be combined with blue sapphire, hessonite (gomed), or cat's eye, as these belong to planets that are enemies of the Sun. Pearl and red coral are generally compatible.</p>
                 </div>
             </div>
             <div class="faq-item">
-                <button class="faq-q" onclick="toggleFaq(this)">How do I clean and maintain my Blue Star ?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
+                <button class="faq-q" onclick="toggleFaq(this)">How do I clean and maintain my {{ $currentCategory->name ?? 'Gemstone' }} ?<i class="ti ti-chevron-down" aria-hidden="true"></i></button>
                 <div class="faq-a">
                     <p>Clean with warm soapy water and a soft brush once a month. Avoid ultrasonic cleaners if your stone is glass-filled. Remove the ring before heavy physical work, swimming, or applying chemicals.</p>
                 </div>
@@ -1354,46 +1354,7 @@
 <section class="products-section">
     <div class="container">
 
-        @php
-            $products = [
-                [
-                    'id' => 1,
-                    'name' => 'Basra Pearl',
-                    'carat' => '1.58',
-                    'sku' => 'BPB000305',
-                    'origin' => 'Basra',
-                    'sale_price' => 111000.00,
-                    'featured_image' => asset('images/gems/blue_sapphire.PNG'),
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'Basra Pearl',
-                    'carat' => '1.65',
-                    'sku' => 'BPB000364',
-                    'origin' => 'Basra',
-                    'sale_price' => 31410.00,
-                    'featured_image' => asset('images/gems/blue_sapphire.PNG'),
-                ],
-                [
-                    'id' => 3,
-                    'name' => 'Basra Pearl',
-                    'carat' => '1.69',
-                    'sku' => 'BPB000365',
-                    'origin' => 'Basra',
-                    'sale_price' => 30790.00,
-                    'featured_image' => asset('images/gems/blue_sapphire.PNG'),
-                ],
-                [
-                    'id' => 4,
-                    'name' => 'Basra Pearl',
-                    'carat' => '1.71',
-                    'sku' => 'BPB000306',
-                    'origin' => 'Basra',
-                    'sale_price' => 59850.00,
-                    'featured_image' => asset('images/gems/blue_sapphire.PNG'),
-                ],
-            ];
-        @endphp
+        
 
         <div class="products-grid">
 
@@ -1403,8 +1364,8 @@
 
                 <div class="product-image">
 
-                    <img src="{{ $product['featured_image'] }}"
-                         alt="{{ $product['name'] }}">
+                    <img src="{{ $product->primaryImage() ? asset('storage/' . $product->primaryImage()->path) : asset('images/placeholder.jpg') }}"
+                         alt="{{ $product->name }}">
 
                 </div>
 
@@ -1427,22 +1388,22 @@
                 <div class="product-info">
 
                     <h3>
-                        {{ $product['name'] }}
-                        - {{ $product['carat'] }} Carat
+                        {{ $product->name }}
+                        - {{ $product->weight }} Carat
                     </h3>
 
                     <p>
                         SKU:
-                        {{ $product['sku'] }}
+                        {{ $product->sku ?? 'N/A' }}
                     </p>
 
                     <p>
                         Origin :
-                        {{ $product['origin'] }}
+                        {{ $product->origin ?? 'N/A' }}
                     </p>
 
                     <div class="price">
-                        ₹{{ number_format($product['sale_price'],2) }}
+                        ₹{{ number_format($product->price,2) }}
                     </div>
 
                 </div>
@@ -1461,8 +1422,8 @@
 
                 <div class="product-image">
 
-                    <img src="{{ $product['featured_image'] }}"
-                         alt="{{ $product['name'] }}">
+                    <img src="{{ $product->primaryImage() ? asset('storage/' . $product->primaryImage()->path) : asset('images/placeholder.jpg') }}"
+                         alt="{{ $product->name }}">
 
                 </div>
 
@@ -1485,22 +1446,22 @@
                 <div class="product-info">
 
                     <h3>
-                        {{ $product['name'] }}
-                        - {{ $product['carat'] }} Carat
+                        {{ $product->name }}
+                        - {{ $product->weight }} Carat
                     </h3>
 
                     <p>
                         SKU:
-                        {{ $product['sku'] }}
+                        {{ $product->sku ?? 'N/A' }}
                     </p>
 
                     <p>
                         Origin :
-                        {{ $product['origin'] }}
+                        {{ $product->origin ?? 'N/A' }}
                     </p>
 
                     <div class="price">
-                        ₹{{ number_format($product['sale_price'],2) }}
+                        ₹{{ number_format($product->price,2) }}
                     </div>
 
                 </div>
@@ -1801,8 +1762,8 @@
     /* ═══════════════════════════════════════════════════════
        SET HERO MEDIA FROM CODE
        ─────────────────────────────────────────────────────
-       For image: setHeroMedia('https://cdn.com/Blue Star .jpg');
-       For video: setHeroMedia('https://cdn.com/Blue Star .mp4');
+       For image: setHeroMedia('https://cdn.com/{{ $currentCategory->name ?? 'Gemstone' }} .jpg');
+       For video: setHeroMedia('https://cdn.com/{{ $currentCategory->name ?? 'Gemstone' }} .mp4');
        Or just paste the URL in the variable below:
     ═══════════════════════════════════════════════════════ */
 
@@ -1832,7 +1793,7 @@
         } else {
             var img = document.createElement('img');
             img.src = url;
-            img.alt = 'Blue Star  stone';
+            img.alt = '{{ $currentCategory->name ?? 'Gemstone' }}  stone';
             img.className = 'hero-img';
             box.insertBefore(img, box.querySelector('.change-video-btn'));
         }

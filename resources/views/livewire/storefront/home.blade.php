@@ -1508,6 +1508,21 @@
             width: 22px;
             border-radius: 3px;
         }
+
+        /* Responsive Media Queries */
+        @media (max-width: 1024px) {
+            .grs-card { flex: 0 0 calc(33.333% - 13.33px); }
+        }
+        @media (max-width: 768px) {
+            .grs-card { flex: 0 0 calc(50% - 10px); }
+            .grs-top { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .grs-title { font-size: 32px; }
+            .grs-section { padding: 40px 0 50px; }
+        }
+        @media (max-width: 480px) {
+            .grs-card { flex: 0 0 calc(100%); }
+            .grs-title { font-size: 28px; }
+        }
     </style>
 
     <section class="grs-section" aria-label="GRS Certified Gemstone Collection">
@@ -1662,11 +1677,25 @@
             const progress = document.getElementById('grsProgress');
             const dotsWrap = document.getElementById('grsDots');
 
-            const VISIBLE = 4;
             const cards = track.querySelectorAll('.grs-card');
             const total = cards.length;
-            const maxIdx = total - VISIBLE;
             let current = 0;
+            let visible = 4;
+            let maxIdx = 0;
+
+            function updateMetrics() {
+                if (window.innerWidth <= 480) {
+                    visible = 1;
+                } else if (window.innerWidth <= 768) {
+                    visible = 2;
+                } else if (window.innerWidth <= 1024) {
+                    visible = 3;
+                } else {
+                    visible = 4;
+                }
+                maxIdx = Math.max(0, total - visible);
+                if (current > maxIdx) current = maxIdx;
+            }
 
             function getCardWidth() {
                 return cards[0].offsetWidth + 20; // card width + gap
@@ -1680,17 +1709,36 @@
                 });
             }
 
-            // Build dots
-            for (let i = 0; i <= maxIdx; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'grs-dot' + (i === 0 ? ' active' : '');
-                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-                dot.addEventListener('click', () => {
-                    current = i;
-                    render();
-                });
-                dotsWrap.appendChild(dot);
+            function buildDots() {
+                dotsWrap.innerHTML = '';
+                for (let i = 0; i <= maxIdx; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = 'grs-dot' + (i === current ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        current = i;
+                        render();
+                    });
+                    dotsWrap.appendChild(dot);
+                }
             }
+
+            function init() {
+                updateMetrics();
+                buildDots();
+                render();
+            }
+
+            window.addEventListener('resize', () => {
+                const oldMax = maxIdx;
+                updateMetrics();
+                if (oldMax !== maxIdx) {
+                    buildDots();
+                }
+                render();
+            });
+
+            init();
 
             prevBtn.addEventListener('click', () => {
                 if (current > 0) {
@@ -2556,6 +2604,14 @@
             color: #1566C0;
         }
 
+        .oc-cert-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
         .oc-cert-name {
             font-size: 14px;
             font-weight: 800;
@@ -2612,6 +2668,19 @@
             border-radius: 4px;
             background: #E8650A;
         }
+
+        /* Certificate Scroller Responsive Fixes */
+        @media (max-width: 768px) {
+            .oc-section { padding: 3rem 0 2rem; }
+            .oc-track-wrap::before, .oc-track-wrap::after { width: 30px; }
+            .oc-card { width: 180px; padding: 16px 14px 14px; gap: 8px; }
+            .oc-badge { width: 48px; height: 48px; font-size: 22px; }
+            .oc-cert-img { height: 90px; margin-bottom: 8px; }
+            .oc-title { font-size: 1.6rem; }
+        }
+        @media (max-width: 480px) {
+            .oc-track-wrap::before, .oc-track-wrap::after { width: 15px; }
+        }
     </style>
 
     <section class="oc-section">
@@ -2620,97 +2689,121 @@
             <h2 class="oc-title">Our <span>Certifications</span></h2>
         </div>
 
-        <div class="oc-track-wrap">
-            <div class="oc-track" id="ocTrack">
+       <div class="oc-track-wrap">
+    <div class="oc-track">
 
-                <!-- Card 1 -->
-                <div class="oc-card orange">
-                    <div class="oc-badge orange"><i class="ti ti-certificate"></i></div>
-                    <p class="oc-cert-name">GIA Certified</p>
-                    <p class="oc-cert-sub">Gemological Institute of America</p>
-                    <span class="oc-pill orange"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="oc-card blue">
-                    <div class="oc-badge blue"><i class="ti ti-award"></i></div>
-                    <p class="oc-cert-name">IGI Certified</p>
-                    <p class="oc-cert-sub">International Gemological Institute</p>
-                    <span class="oc-pill blue"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="oc-card orange">
-                    <div class="oc-badge orange"><i class="ti ti-shield-check"></i></div>
-                    <p class="oc-cert-name">AGS Certified</p>
-                    <p class="oc-cert-sub">American Gem Society</p>
-                    <span class="oc-pill orange"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="oc-card blue">
-                    <div class="oc-badge blue"><i class="ti ti-rosette"></i></div>
-                    <p class="oc-cert-name">HRD Certified</p>
-                    <p class="oc-cert-sub">Hoge Raad voor Diamant, Belgium</p>
-                    <span class="oc-pill blue"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="oc-card orange">
-                    <div class="oc-badge orange"><i class="ti ti-medal"></i></div>
-                    <p class="oc-cert-name">GSI Certified</p>
-                    <p class="oc-cert-sub">Gemological Science International</p>
-                    <span class="oc-pill orange"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="oc-card blue">
-                    <div class="oc-badge blue"><i class="ti ti-star"></i></div>
-                    <p class="oc-cert-name">EGL Certified</p>
-                    <p class="oc-cert-sub">European Gemological Laboratory</p>
-                    <span class="oc-pill blue"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
-                <!-- Duplicate for infinite loop -->
-                <div class="oc-card orange">
-                    <div class="oc-badge orange"><i class="ti ti-certificate"></i></div>
-                    <p class="oc-cert-name">GIA Certified</p>
-                    <p class="oc-cert-sub">Gemological Institute of America</p>
-                    <span class="oc-pill orange"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-                <div class="oc-card blue">
-                    <div class="oc-badge blue"><i class="ti ti-award"></i></div>
-                    <p class="oc-cert-name">IGI Certified</p>
-                    <p class="oc-cert-sub">International Gemological Institute</p>
-                    <span class="oc-pill blue"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-                <div class="oc-card orange">
-                    <div class="oc-badge orange"><i class="ti ti-shield-check"></i></div>
-                    <p class="oc-cert-name">AGS Certified</p>
-                    <p class="oc-cert-sub">American Gem Society</p>
-                    <span class="oc-pill orange"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-                <div class="oc-card blue">
-                    <div class="oc-badge blue"><i class="ti ti-rosette"></i></div>
-                    <p class="oc-cert-name">HRD Certified</p>
-                    <p class="oc-cert-sub">Hoge Raad voor Diamant, Belgium</p>
-                    <span class="oc-pill blue"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-                <div class="oc-card orange">
-                    <div class="oc-badge orange"><i class="ti ti-medal"></i></div>
-                    <p class="oc-cert-name">GSI Certified</p>
-                    <p class="oc-cert-sub">Gemological Science International</p>
-                    <span class="oc-pill orange"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-                <div class="oc-card blue">
-                    <div class="oc-badge blue"><i class="ti ti-star"></i></div>
-                    <p class="oc-cert-name">EGL Certified</p>
-                    <p class="oc-cert-sub">European Gemological Laboratory</p>
-                    <span class="oc-pill blue"><i class="ti ti-check" style="font-size:12px"></i> Verified</span>
-                </div>
-
+        <!-- Card 1 -->
+        <div class="oc-card orange">
+            <img src="{{ asset('images/rajrajeswari.jpeg') }}" class="oc-cert-img" alt="GIA Pearl Certificate">
+            <div class="oc-badge orange">
+                <i class="ti ti-certificate"></i>
             </div>
+            <p class="oc-cert-name">GIA Pearl Grading Lab</p>
+            <p class="oc-cert-sub">Gemological Institute of America</p>
+            <span class="oc-pill orange"><i class="ti ti-check"></i> Certified 2012</span>
         </div>
+
+        <!-- Card 2 -->
+        <div class="oc-card blue">
+            <img src="{{ asset('images/rajrajeswari1.jpeg') }}" class="oc-cert-img" alt="GIA Diamond Certificate">
+            <div class="oc-badge blue">
+                <i class="ti ti-award"></i>
+            </div>
+            <p class="oc-cert-name">GIA Diamond Grading Lab</p>
+            <p class="oc-cert-sub">Gemological Institute of America</p>
+            <span class="oc-pill blue"><i class="ti ti-check"></i> Certified 2013</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="oc-card orange">
+            <img src="{{ asset('images/isi.jpeg') }}" class="oc-cert-img" alt="IGI Certificate">
+            <div class="oc-badge orange">
+                <i class="ti ti-shield-check"></i>
+            </div>
+            <p class="oc-cert-name">IGI Certified</p>
+            <p class="oc-cert-sub">International Gemological Institute</p>
+            <span class="oc-pill orange"><i class="ti ti-check"></i> Verified</span>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="oc-card blue">
+            <img src="{{ asset('images/rajrajeswari.jpeg') }}" class="oc-cert-img" alt="AGS Certificate">
+            <div class="oc-badge blue">
+                <i class="ti ti-rosette"></i>
+            </div>
+            <p class="oc-cert-name">AGS Certified</p>
+            <p class="oc-cert-sub">American Gem Society</p>
+            <span class="oc-pill blue"><i class="ti ti-check"></i> Verified</span>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="oc-card orange">
+            <img src="{{ asset('images/rajrajeswari1.jpeg') }}" class="oc-cert-img" alt="HRD Certificate">
+            <div class="oc-badge orange">
+                <i class="ti ti-medal"></i>
+            </div>
+            <p class="oc-cert-name">HRD Certified</p>
+            <p class="oc-cert-sub">Hoge Raad voor Diamant</p>
+            <span class="oc-pill orange"><i class="ti ti-check"></i> Verified</span>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="oc-card blue">
+            <img src="{{ asset('images/isi.jpeg') }}" class="oc-cert-img" alt="GSI Certificate">
+            <div class="oc-badge blue">
+                <i class="ti ti-star"></i>
+            </div>
+            <p class="oc-cert-name">GSI Certified</p>
+            <p class="oc-cert-sub">Gemological Science International</p>
+            <span class="oc-pill blue"><i class="ti ti-check"></i> Verified</span>
+        </div>
+
+        <!-- DUPLICATE FOR INFINITE SLIDER -->
+        <div class="oc-card orange">
+            <img src="{{ asset('images/rajrajeswari.jpeg') }}" class="oc-cert-img" alt="GIA Pearl Certificate">
+            <div class="oc-badge orange"><i class="ti ti-certificate"></i></div>
+            <p class="oc-cert-name">GIA Pearl Grading Lab</p>
+            <p class="oc-cert-sub">Gemological Institute of America</p>
+            <span class="oc-pill orange"><i class="ti ti-check"></i> Certified 2012</span>
+        </div>
+        <div class="oc-card blue">
+            <img src="{{ asset('images/rajrajeswari1.jpeg') }}" class="oc-cert-img" alt="GIA Diamond Certificate">
+            <div class="oc-badge blue"><i class="ti ti-award"></i></div>
+            <p class="oc-cert-name">GIA Diamond Grading Lab</p>
+            <p class="oc-cert-sub">Gemological Institute of America</p>
+            <span class="oc-pill blue"><i class="ti ti-check"></i> Certified 2013</span>
+        </div>
+        <div class="oc-card orange">
+            <img src="{{ asset('images/isi.jpeg') }}" class="oc-cert-img" alt="IGI Certificate">
+            <div class="oc-badge orange"><i class="ti ti-shield-check"></i></div>
+            <p class="oc-cert-name">IGI Certified</p>
+            <p class="oc-cert-sub">International Gemological Institute</p>
+            <span class="oc-pill orange"><i class="ti ti-check"></i> Verified</span>
+        </div>
+        <div class="oc-card blue">
+            <img src="{{ asset('images/rajrajeswari.jpeg') }}" class="oc-cert-img" alt="AGS Certificate">
+            <div class="oc-badge blue"><i class="ti ti-rosette"></i></div>
+            <p class="oc-cert-name">AGS Certified</p>
+            <p class="oc-cert-sub">American Gem Society</p>
+            <span class="oc-pill blue"><i class="ti ti-check"></i> Verified</span>
+        </div>
+        <div class="oc-card orange">
+            <img src="{{ asset('images/rajrajeswari1.jpeg') }}" class="oc-cert-img" alt="HRD Certificate">
+            <div class="oc-badge orange"><i class="ti ti-medal"></i></div>
+            <p class="oc-cert-name">HRD Certified</p>
+            <p class="oc-cert-sub">Hoge Raad voor Diamant</p>
+            <span class="oc-pill orange"><i class="ti ti-check"></i> Verified</span>
+        </div>
+        <div class="oc-card blue">
+            <img src="{{ asset('images/isi.jpeg') }}" class="oc-cert-img" alt="GSI Certificate">
+            <div class="oc-badge blue"><i class="ti ti-star"></i></div>
+            <p class="oc-cert-name">GSI Certified</p>
+            <p class="oc-cert-sub">Gemological Science International</p>
+            <span class="oc-pill blue"><i class="ti ti-check"></i> Verified</span>
+        </div>
+
+    </div>
+</div>
 
         <div class="oc-dots">
             <span class="oc-dot active"></span>

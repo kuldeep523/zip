@@ -22,11 +22,22 @@
                             <label class="form-label">Category</label>
                             <select wire:model.live="selected_category" class="form-select">
                                 <option value="">Select</option>
-                                @foreach($categories as $cat)
-                                    @include('livewire.admin.products.category-option', ['category' => $cat, 'level' => 0])
+                                @foreach($categoryOptions as $id => $data)
+                                    <option value="{{ $id }}">{{ $selected_category == $id ? $data['path'] : $data['tree'] }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @if($showMetalSection)
+                        <div class="col-md-6">
+                            <label class="form-label">Metal</label>
+                            <select wire:model="form.metal_id" class="form-select">
+                                <option value="">Select</option>
+                                @foreach($metalOptions as $metal)
+                                    <option value="{{ $metal->id }}">{{ $metal->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
                         <div class="col-md-6">
                             <label class="form-label">Brand</label>
                             <select wire:model="form.brand_id" class="form-select">

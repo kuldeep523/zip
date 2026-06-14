@@ -22,7 +22,7 @@ class Index extends Component
         $originalSlug = Str::slug($data['name']);
         $slug = $originalSlug;
         $count = 1;
-        while (Category::where('slug', $slug)->where('id', '!=', $this->editingId)->exists()) {
+        while (Category::withTrashed()->where('slug', $slug)->where('id', '!=', $this->editingId)->exists()) {
             $slug = "{$originalSlug}-{$count}";
             $count++;
         }
@@ -57,11 +57,29 @@ class Index extends Component
         $this->form = ['name' => '', 'parent_id' => null, 'description' => '', 'is_active' => true];
     }
 
+    protected function generateCategoryTreeOptions($categories, $parentId = null, $prefix = '', $pathPrefix = '')
+    {
+        $options = [];
+        foreach ($categories->where('parent_id', $parentId) as $category) {
+            if ($this->editingId && $category->id === $this->editingId) {
+                continue;
+            }
+            $currentPath = $pathPrefix ? $pathPrefix . ' -> ' . $category->name : $category->name;
+            $options[$category->id] = [
+                'tree' => $prefix . $category->name,
+                'path' => $currentPath,
+            ];
+            $options += $this->generateCategoryTreeOptions($categories, $category->id, $prefix . '— ', $currentPath);
+        }
+        return $options;
+    }
+
     public function render()
     {
+        $allCategories = Category::orderBy('sort_order')->orderBy('name')->get();
         return view('livewire.admin.categories.index', [
             'categories' => Category::with('parent', 'children')->whereNull('parent_id')->orderBy('sort_order')->get(),
-            'allCategories' => Category::orderBy('name')->get(),
+            'categoryOptions' => $this->generateCategoryTreeOptions($allCategories),
         ])->title('Categories');
     }
 }

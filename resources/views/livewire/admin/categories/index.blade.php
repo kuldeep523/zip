@@ -8,10 +8,10 @@
                     <form wire:submit="save" class="row g-2">
                         <div class="col-12"><input wire:model="form.name" class="form-control" placeholder="Name"></div>
                         <div class="col-12">
-                            <select wire:model="form.parent_id" class="form-select">
+                            <select wire:model.live="form.parent_id" class="form-select">
                                 <option value="">Main Category</option>
-                                @foreach($allCategories as $c)
-                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @foreach($categoryOptions as $id => $data)
+                                    <option value="{{ $id }}">{{ $form['parent_id'] == $id ? $data['path'] : $data['tree'] }}</option>
                                 @endforeach
                             </select>
                         </div>

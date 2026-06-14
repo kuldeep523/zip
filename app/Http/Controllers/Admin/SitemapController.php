@@ -43,7 +43,7 @@ class SitemapController extends Controller
             'priority' => '0.5',
         ]));
 
-        return response()->view('sitemap.xml', compact('urls'))
+        return response()->view('sitemap', compact('urls'))
             ->header('Content-Type', 'application/xml');
     }
 }

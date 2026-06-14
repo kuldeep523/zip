@@ -20,7 +20,7 @@ class Product extends Model
         'short_description', 'long_description', 'video_url', 'price', 'sale_price',
         'tax_percent', 'stock_quantity', 'low_stock_threshold', 'weight', 'dimensions',
         'origin', 'weight_unit', 'shape', 'cut', 'composition', 'certification_type',
-        'certification_no', 'treatment', 'dimension_type', 'color',
+        'certification_no', 'treatment', 'dimension_type', 'color', 'metal_id',
         'status', 'is_featured', 'is_best_seller', 'is_new_arrival', 'views_count', 'sort_order',
         'meta_title', 'meta_description', 'meta_keywords', 'canonical_url',
         'og_tags', 'twitter_cards', 'schema_markup', 'faq_schema',
@@ -47,6 +47,11 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function metal(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'metal_id');
     }
 
     public function subCategory(): BelongsTo

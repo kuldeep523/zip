@@ -332,6 +332,9 @@
                         </a>
                         <div class="dropdown-menu w-100 mega-menu-dropdown border-0 shadow rounded-0 p-4">
                             <div class="container">
+                                <div class="mb-3 border-bottom pb-2">
+                                    <a href="{{ url('/Gemstone-detailpage?category=jewellery') }}" class="fw-bold text-navy text-decoration-none">View All Jewellery &rarr;</a>
+                                </div>
                                 <div class="row g-0">
                                     @php 
                                         $jewelleryCat = \App\Models\Category::where('name', 'Jewellery')->with('children.children')->first(); 
@@ -339,12 +342,12 @@
                                     @if($jewelleryCat)
                                         @foreach($jewelleryCat->children as $child)
                                         <div class="col-md-3 p-2">
-                                            <h6 class="mega-title fw-semibold"><a href="{{ url('/category/'.$child->slug) }}" class="text-dark text-decoration-none">{{ $child->name }}</a></h6>
+                                            <h6 class="mega-title fw-semibold"><a href="{{ url('/Gemstone-detailpage?category='.$child->slug) }}" class="text-dark text-decoration-none">{{ $child->name }}</a></h6>
                                             @if($child->children->count())
                                             <ul class="list-unstyled mega-list mt-2">
                                                 @foreach($child->children as $subChild)
                                                 <li class="mb-1">
-                                                    <a href="{{ url('/category/'.$subChild->slug) }}" class="text-decoration-none">{{ $subChild->name }}</a>
+                                                    <a href="{{ url('/Gemstone-detailpage?category='.$subChild->slug) }}" class="text-decoration-none">{{ $subChild->name }}</a>
                                                 </li>
                                                 @endforeach
                                             </ul>
@@ -376,14 +379,14 @@
 
                                 {{-- Column 1: By Navratna --}}
                                 <div class="col-md-4 mega-col">
-                                    <h6 class="mega-heading">By RR Gems</h6>
+                                    <h6 class="mega-heading"><a href="{{ url('/Gemstone-detailpage?category=gemstones') }}" class="text-dark text-decoration-none">View All Gemstones &rarr;</a></h6>
                                     <ul class="list-unstyled">
                                         @php 
                                             $gemstoneCat = \App\Models\Category::where('name', 'Gemstones')->with('children')->first(); 
                                         @endphp
                                         @if($gemstoneCat)
                                             @foreach($gemstoneCat->children as $child)
-                                            <li><a class="mega-link" href="{{ url('/category/'.$child->slug) }}">{{ $child->name }}</a></li>
+                                            <li><a class="mega-link" href="{{ url('/Gemstone-detailpage?category='.$child->slug) }}">{{ $child->name }}</a></li>
                                             @endforeach
                                         @endif
                                     </ul>
@@ -402,6 +405,15 @@
                     <li class="nav-item">
                         <a class="nav-link px-3 py-3"
                             href="{{ url('/About-us') }}">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 py-3"
+                            href="{{ url('/Privacy-Policy') }}">Privacy Policy</a>
+                    </li>
+
+                      <li class="nav-item">
+                        <a class="nav-link px-3 py-3"
+                            href="{{ url('/Shipping-Policy') }}"> Shipping Policy</a>
                     </li>
 
                     <li class="nav-item">

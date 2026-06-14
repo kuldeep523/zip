@@ -6,7 +6,12 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-navy text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('/shop') }}" class="text-navy text-decoration-none">Shop</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('/shop?category=' . urlencode($gem->category->name ?? '')) }}" class="text-navy text-decoration-none">{{ $gem->category->name ?? 'Gemstone' }}</a></li>
+                @if($gem->category)
+                    <li class="breadcrumb-item"><a href="{{ url('/shop?category=' . urlencode($gem->category->slug)) }}" class="text-navy text-decoration-none">{{ $gem->category->name }}</a></li>
+                @endif
+                @if($gem->subCategory)
+                    <li class="breadcrumb-item"><a href="{{ url('/shop?category=' . urlencode($gem->subCategory->slug)) }}" class="text-navy text-decoration-none">{{ $gem->subCategory->name }}</a></li>
+                @endif
                 <li class="breadcrumb-item active text-muted" aria-current="page">{{ $gem->name }}</li>
             </ol>
         </nav>
@@ -33,6 +38,7 @@
                 </div>
 
                 <!-- Astro Planetary Association Info -->
+                @if(($gem->category->name ?? '') == 'Gemstones')
                 <div class="card border-0 shadow-sm rounded-3 overflow-hidden bg-white mb-4">
                     <div class="card-header bg-navy text-white py-3 cinzel-font">
                         <i class="bi bi-stars text-warning me-2"></i>Astrological Wearing Guide
@@ -42,11 +48,11 @@
                             <div class="col-sm-6">
                                 <span class="text-muted d-block small">Planet Ruler</span>
                                 <strong class="text-navy">
-                                    @if(($gem->category->name ?? '') == 'Ruby') Sun (Surya)
-                                    @elseif(($gem->category->name ?? '') == 'Emerald') Mercury (Budh)
-                                    @elseif(($gem->category->name ?? '') == 'Blue Sapphire') Saturn (Shani)
-                                    @elseif(($gem->category->name ?? '') == 'Yellow Sapphire') Jupiter (Guru)
-                                    @elseif(($gem->category->name ?? '') == 'Opal') Venus (Shukra)
+                                    @if(($gem->subCategory->name ?? '') == 'Ruby') Sun (Surya)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Emerald') Mercury (Budh)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Blue Sapphire') Saturn (Shani)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Yellow Sapphire') Jupiter (Guru)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Opal') Venus (Shukra)
                                     @else Moon (Chandra)
                                     @endif
                                 </strong>
@@ -54,11 +60,11 @@
                             <div class="col-sm-6">
                                 <span class="text-muted d-block small">Recommended Finger</span>
                                 <strong class="text-navy">
-                                    @if(($gem->category->name ?? '') == 'Ruby') Ring Finger of right hand
-                                    @elseif(($gem->category->name ?? '') == 'Emerald') Little Finger of right hand
-                                    @elseif(($gem->category->name ?? '') == 'Blue Sapphire') Middle Finger of right hand
-                                    @elseif(($gem->category->name ?? '') == 'Yellow Sapphire') Index Finger of right hand
-                                    @elseif(($gem->category->name ?? '') == 'Opal') Ring Finger of right hand
+                                    @if(($gem->subCategory->name ?? '') == 'Ruby') Ring Finger of right hand
+                                    @elseif(($gem->subCategory->name ?? '') == 'Emerald') Little Finger of right hand
+                                    @elseif(($gem->subCategory->name ?? '') == 'Blue Sapphire') Middle Finger of right hand
+                                    @elseif(($gem->subCategory->name ?? '') == 'Yellow Sapphire') Index Finger of right hand
+                                    @elseif(($gem->subCategory->name ?? '') == 'Opal') Ring Finger of right hand
                                     @else Little Finger of working hand
                                     @endif
                                 </strong>
@@ -66,19 +72,19 @@
                             <div class="col-sm-6">
                                 <span class="text-muted d-block small">Suitable Metal</span>
                                 <strong class="text-navy">
-                                    @if(($gem->category->name ?? '') == 'Ruby' || ($gem->category->name ?? '') == 'Yellow Sapphire') Gold / Panchdhatu
-                                    @elseif(($gem->category->name ?? '') == 'Blue Sapphire' || ($gem->category->name ?? '') == 'Opal' || ($gem->category->name ?? '') == 'Pearl' || ($gem->category->name ?? '') == 'Emerald') Gold / Silver / Platinum
+                                    @if(($gem->subCategory->name ?? '') == 'Ruby' || ($gem->subCategory->name ?? '') == 'Yellow Sapphire') Gold / Panchdhatu
+                                    @elseif(($gem->subCategory->name ?? '') == 'Blue Sapphire' || ($gem->subCategory->name ?? '') == 'Opal' || ($gem->subCategory->name ?? '') == 'Pearl' || ($gem->subCategory->name ?? '') == 'Emerald') Gold / Silver / Platinum
                                     @endif
                                 </strong>
                             </div>
                             <div class="col-sm-6">
                                 <span class="text-muted d-block small">Auspicious Day & Time</span>
                                 <strong class="text-navy">
-                                    @if(($gem->category->name ?? '') == 'Ruby') Sunday Morning (6 AM - 8 AM)
-                                    @elseif(($gem->category->name ?? '') == 'Emerald') Wednesday Morning (6 AM - 9 AM)
-                                    @elseif(($gem->category->name ?? '') == 'Blue Sapphire') Saturday Evening (during Twilight)
-                                    @elseif(($gem->category->name ?? '') == 'Yellow Sapphire') Thursday Morning (6 AM - 8:30 AM)
-                                    @elseif(($gem->category->name ?? '') == 'Opal') Friday Morning (6 AM - 8 AM)
+                                    @if(($gem->subCategory->name ?? '') == 'Ruby') Sunday Morning (6 AM - 8 AM)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Emerald') Wednesday Morning (6 AM - 9 AM)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Blue Sapphire') Saturday Evening (during Twilight)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Yellow Sapphire') Thursday Morning (6 AM - 8:30 AM)
+                                    @elseif(($gem->subCategory->name ?? '') == 'Opal') Friday Morning (6 AM - 8 AM)
                                     @else Monday Morning (during Shukla Paksha)
                                     @endif
                                 </strong>
@@ -89,16 +95,17 @@
 
                         <span class="text-muted d-block small mb-1">Beej Purification Mantra</span>
                         <blockquote class="blockquote bg-light p-3 rounded fs-7 mb-0 border-start border-warning border-3 font-monospace">
-                            @if(($gem->category->name ?? '') == 'Ruby') "Om Hraam Hreem Hroum Sah Suryaya Namah" (108 Times)
-                            @elseif(($gem->category->name ?? '') == 'Emerald') "Om Braam Breem Broum Sah Budhaya Namah" (108 Times)
-                            @elseif(($gem->category->name ?? '') == 'Blue Sapphire') "Om Praam Preem Proum Sah Shanaye Namah" (108 Times)
-                            @elseif(($gem->category->name ?? '') == 'Yellow Sapphire') "Om Graam Greem Groum Sah Gurave Namah" (108 Times)
-                            @elseif(($gem->category->name ?? '') == 'Opal') "Om Draam Dreem Droum Sah Shukraya Namah" (108 Times)
+                            @if(($gem->subCategory->name ?? '') == 'Ruby') "Om Hraam Hreem Hroum Sah Suryaya Namah" (108 Times)
+                            @elseif(($gem->subCategory->name ?? '') == 'Emerald') "Om Braam Breem Broum Sah Budhaya Namah" (108 Times)
+                            @elseif(($gem->subCategory->name ?? '') == 'Blue Sapphire') "Om Praam Preem Proum Sah Shanaye Namah" (108 Times)
+                            @elseif(($gem->subCategory->name ?? '') == 'Yellow Sapphire') "Om Graam Greem Groum Sah Gurave Namah" (108 Times)
+                            @elseif(($gem->subCategory->name ?? '') == 'Opal') "Om Draam Dreem Droum Sah Shukraya Namah" (108 Times)
                             @else "Om Shraam Shreem Shroum Sah Chandraya Namah" (108 Times)
                             @endif
                         </blockquote>
                     </div>
                 </div>
+                @endif
             </div>
 
             <!-- Right Column: Product Info & Cart Operations -->
@@ -193,44 +200,46 @@
                         <table class="table table-bordered table-striped specs-table mb-0 small">
                             <tbody>
                                 <tr>
-                                    <th width="30%">Gem Identification</th>
-                                    <td>{{ $gem->category->name ?? 'Gemstone' }} (Natural)</td>
+                                    <th width="30%">Identification</th>
+                                    <td>{{ $gem->subCategory->name ?? ($gem->category->name ?? 'Product') }} (Natural)</td>
                                     <th width="30%">Color Tone</th>
-                                    <td>{{ $gem->color }}</td>
+                                    <td>{{ $gem->color ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Total Weight</th>
-                                    <td colspan="3">{{ $gem->weight }} {{ $gem->weight_unit }}</td>
+                                    <td>{{ $gem->weight ?? 'N/A' }} {{ $gem->weight_unit ?? '' }}</td>
+                                    <th>Metal Setting</th>
+                                    <td>{{ $gem->metal->name ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Cut & Shape</th>
-                                    <td>{{ $gem->shape }}</td>
+                                    <td>{{ $gem->shape ?? 'N/A' }} {{ $gem->cut ? '('.$gem->cut.')' : '' }}</td>
                                     <th>Optical Origin</th>
-                                    <td>{{ $gem->origin }}</td>
+                                    <td>{{ $gem->origin ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Refractive Index</th>
                                     <td>
-                                        @if(($gem->category->name ?? '') == 'Ruby' || ($gem->category->name ?? '') == 'Blue Sapphire' || ($gem->category->name ?? '') == 'Yellow Sapphire') 1.762 - 1.770
-                                        @elseif(($gem->category->name ?? '') == 'Emerald') 1.577 - 1.583
-                                        @elseif(($gem->category->name ?? '') == 'Opal') 1.450
-                                        @else 1.530 - 1.680
+                                        @if(($gem->subCategory->name ?? '') == 'Ruby' || ($gem->subCategory->name ?? '') == 'Blue Sapphire' || ($gem->subCategory->name ?? '') == 'Yellow Sapphire') 1.762 - 1.770
+                                        @elseif(($gem->subCategory->name ?? '') == 'Emerald') 1.577 - 1.583
+                                        @elseif(($gem->subCategory->name ?? '') == 'Opal') 1.450
+                                        @else N/A
                                         @endif
                                     </td>
                                     <th>Specific Gravity</th>
                                     <td>
-                                        @if(($gem->category->name ?? '') == 'Ruby' || ($gem->category->name ?? '') == 'Blue Sapphire' || ($gem->category->name ?? '') == 'Yellow Sapphire') 4.00
-                                        @elseif(($gem->category->name ?? '') == 'Emerald') 2.72
-                                        @elseif(($gem->category->name ?? '') == 'Opal') 2.15
-                                        @else 2.73
+                                        @if(($gem->subCategory->name ?? '') == 'Ruby' || ($gem->subCategory->name ?? '') == 'Blue Sapphire' || ($gem->subCategory->name ?? '') == 'Yellow Sapphire') 4.00
+                                        @elseif(($gem->subCategory->name ?? '') == 'Emerald') 2.72
+                                        @elseif(($gem->subCategory->name ?? '') == 'Opal') 2.15
+                                        @else N/A
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Treatments Checked</th>
-                                    <td>{{ $gem->treatment }}</td>
+                                    <td>{{ $gem->treatment ?? 'None' }}</td>
                                     <th>Certificate Authority</th>
-                                    <td>{{ $gem->certification_type }} (Reg: {{ $gem->certification_no }})</td>
+                                    <td>{{ $gem->certification_type ?? 'N/A' }} (Reg: {{ $gem->certification_no ?? 'N/A' }})</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -243,7 +252,7 @@
         @if($related->count() > 0)
             <div class="row mt-5 pt-4">
                 <div class="col-12 mb-4">
-                    <h3 class="h4 fw-bold text-navy cinzel-font"><i class="bi bi-grid-fill text-warning me-2"></i>Other Recommended {{ $gem->category->name ?? 'Gemstone' }}s</h3>
+                    <h3 class="h4 fw-bold text-navy cinzel-font"><i class="bi bi-grid-fill text-warning me-2"></i>Other Recommended {{ $gem->subCategory->name ?? ($gem->category->name ?? 'Product') }}s</h3>
                 </div>
                 @foreach($related as $rgem)
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -254,7 +263,7 @@
                                 <span class="gem-badge-weight">{{ $rgem->weight }} {{ $rgem->weight_unit }}</span>
                             </div>
                             <div class="p-3">
-                                <span class="text-muted small text-uppercase tracking-wider">{{ $rgem->category->name ?? 'Gemstone' }}</span>
+                                <span class="text-muted small text-uppercase tracking-wider">{{ $rgem->subCategory->name ?? ($rgem->category->name ?? 'Product') }}</span>
                                 <h3 class="gem-card-title mt-1"><a href="{{ url('/gemstone/' . $rgem->slug) }}" class="text-decoration-none text-navy">{{ $rgem->name }}</a></h3>
                                 
                                 <div class="d-flex justify-content-between align-items-center my-3">

@@ -20,6 +20,8 @@ use App\Livewire\Storefront\WishlistPage;
 use App\Livewire\Storefront\Gemsrecommendation;
 use App\Livewire\Storefront\GemstonesDetailpage;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Storefront\PrivacyPolicy;
+use App\Livewire\Storefront\ShippingPolicy;
 
 // Public storefront (Bootstrap 5 + Livewire)
 Route::get('/', Home::class)->name('storefront.home');
@@ -45,6 +47,9 @@ Route::get('/contact-us', Contactus::class)->name('storefront.contactus');
 Route::get('/About-us', About::class)->name('storefront.About');
 Route::get('/Gems-recommendation', Gemrecommendation::class)->name('storefront.Gemsrecommendation');
 Route::get('/Gemstone-detailpage',  GemstonesDetailpage::class)->name('storefront.Gemstone-detailpage');
+
+Route::get('/Privacy-Policy', PrivacyPolicy::class)->name('storefront.PrivacyPolicy');
+Route::get('/Shipping-Policy', ShippingPolicy::class)->name('storefront.ShippingPolicy');
 
 
 Route::middleware([

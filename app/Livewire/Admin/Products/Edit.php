@@ -21,6 +21,7 @@ class Edit extends Component
     public array $form = [];
     public ?int $selected_category = null;
     public bool $showPriceSection = true;
+    public bool $showMetalSection = false;
     public $images = [];
 
     public function mount(Product $product): void
@@ -31,7 +32,7 @@ class Edit extends Component
             'short_description', 'long_description', 'video_url', 'price', 'sale_price',
             'tax_percent', 'stock_quantity', 'weight', 'dimensions', 'status',
             'origin', 'weight_unit', 'shape', 'cut', 'composition', 'certification_type',
-            'certification_no', 'treatment', 'dimension_type', 'color',
+            'certification_no', 'treatment', 'dimension_type', 'color', 'metal_id',
             'is_featured', 'is_best_seller', 'is_new_arrival',
             'meta_title', 'meta_description', 'meta_keywords',
         ]);
@@ -43,13 +44,19 @@ class Edit extends Component
     public function updatedSelectedCategory($value)
     {
         $this->showPriceSection = false;
+        $this->showMetalSection = false;
         if ($value) {
             $node = Category::find($value);
             while ($node && $node->parent_id) {
                 $node = Category::find($node->parent_id);
             }
-            if ($node && str_contains(strtolower($node->name), 'gem')) {
-                $this->showPriceSection = true;
+            if ($node) {
+                if (str_contains(strtolower($node->name), 'gem')) {
+                    $this->showPriceSection = true;
+                }
+                if (str_contains(strtolower($node->name), 'jewel')) {
+                    $this->showMetalSection = true;
+                }
             }
         }
     }
@@ -115,10 +122,33 @@ class Edit extends Component
         $this->redirect(route('admin.products.index'), navigate: true);
     }
 
+    protected function generateCategoryTreeOptions($categories, $parentId = null, $prefix = '', $pathPrefix = '')
+    {
+        $options = [];
+        $items = $parentId === null 
+            ? $categories->whereNull('parent_id')->filter(fn($c) => str_contains(strtolower($c->name), 'gem') || str_contains(strtolower($c->name), 'jewel'))
+            : $categories->where('parent_id', $parentId);
+            
+        foreach ($items as $category) {
+            $currentPath = $pathPrefix ? $pathPrefix . ' -> ' . $category->name : $category->name;
+            $options[$category->id] = [
+                'tree' => $prefix . $category->name,
+                'path' => $currentPath,
+            ];
+            $options += $this->generateCategoryTreeOptions($categories, $category->id, $prefix . '— ', $currentPath);
+        }
+        return $options;
+    }
+
     public function render()
     {
+        $allCategories = Category::orderBy('sort_order')->orderBy('name')->get();
+        $metalCategory = Category::where('name', 'like', '%Metal%')->orWhere('name', 'like', '%Matel%')->first();
+        $metalOptions = $metalCategory ? $metalCategory->children()->get() : collect();
+
         return view('livewire.admin.products.form', [
-            'categories' => Category::whereNull('parent_id')->with('children')->orderBy('sort_order')->get(),
+            'categoryOptions' => $this->generateCategoryTreeOptions($allCategories),
+            'metalOptions' => $metalOptions,
             'brands' => Brand::where('is_active', true)->get(),
             'statuses' => ProductStatus::cases(),
         ])->title('Edit Product');

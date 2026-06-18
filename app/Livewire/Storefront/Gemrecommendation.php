@@ -5,7 +5,7 @@ namespace App\Livewire\Storefront;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use App\Models\AstroZodiacSign;
-use App\Models\Gemstone;
+use App\Models\Product;
 
 #[Layout('layouts.gem-theme')]
 class Gemrecommendation extends Component
@@ -39,21 +39,34 @@ class Gemrecommendation extends Component
 
         $gemType = $sign?->recommended_gem_category ?? 'Ruby';
 
-        $gem = Gemstone::where('category', $gemType)->first()
-            ?? Gemstone::where('is_featured', true)->first();
+        $category = \App\Models\Category::where('name', $gemType)->first();
+
+        $gem = null;
+        if ($category) {
+            $gem = Product::where('category_id', $category->id)
+                ->where('status', 'published')
+                ->first();
+        }
+
+        if (!$gem) {
+            $gem = Product::where('is_featured', true)
+                ->where('status', 'published')
+                ->first();
+        }
 
         if (!$gem) {
             return;
         }
 
         $this->recommendation = [
+            'gem_id'     => $gem->id,
             'gem_name'   => $gem->name,
-            'category'   => $gem->category,
+            'category'   => $gem->category?->name ?? $gemType,
             'slug'       => $gem->slug,
-            'ratti'      => $gem->weight_ratti,
-            'benefits'   => $gem->astrological_benefits,
-            'planet'     => $gem->planet_ruler ?? $this->planetLabel($gem->category),
-            'image'      => $gem->image_path,
+            'ratti'      => $gem->weight,
+            'benefits'   => $gem->short_description ?? 'Great astrological benefits.',
+            'planet'     => $gem->planet_ruler ?? $this->planetLabel($gem->category?->name ?? $gemType),
+            'image'      => $gem->primaryImage() ? 'storage/' . $gem->primaryImage()->path : 'images/placeholder.jpg',
         ];
     }
 

@@ -3,7 +3,6 @@
 namespace App\Livewire\Storefront;
 
 use Livewire\Component;
-use App\Services\GemstoneService;
 
 class Cart extends Component
 {

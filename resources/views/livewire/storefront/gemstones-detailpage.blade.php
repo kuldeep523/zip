@@ -759,18 +759,22 @@
                             <span>({{ $currentCategory->name ?? 'Gemstone' }})</span>
                         </h1>
 
-                        <p>
-                            {{ $currentCategory->name ?? 'Gemstone' }} , known as {{ $currentCategory->name ?? 'Gemstone' }} in Vedic Astrology, is one of the most
-                            admired gemstones in the world. Its rich red color symbolizes
-                            confidence, leadership, success, and vitality.
-                        </p>
+                        @if(isset($currentCategory) && !empty($currentCategory->description))
+                            <p>{!! nl2br(e($currentCategory->description)) !!}</p>
+                        @else
+                            <p>
+                                {{ $currentCategory->name ?? 'Gemstone' }} , known as {{ $currentCategory->name ?? 'Gemstone' }} in Vedic Astrology, is one of the most
+                                admired gemstones in the world. Its rich red color symbolizes
+                                confidence, leadership, success, and vitality.
+                            </p>
 
-                        <p>
-                            Associated with the Sun, {{ $currentCategory->name ?? 'Gemstone' }}  is believed to enhance personal
-                            power, attract recognition, and bring positive energy into life.
-                            It remains one of the most sought-after gemstones for both its
-                            beauty and astrological significance.
-                        </p>
+                            <p>
+                                Associated with the Sun, {{ $currentCategory->name ?? 'Gemstone' }}  is believed to enhance personal
+                                power, attract recognition, and bring positive energy into life.
+                                It remains one of the most sought-after gemstones for both its
+                                beauty and astrological significance.
+                            </p>
+                        @endif
 
                         <div class="gem-features">
                             <div class="feature">
@@ -1363,23 +1367,23 @@
             <div class="product-card">
 
                 <div class="product-image">
-
-                    <img src="{{ $product->primaryImage() ? asset('storage/' . $product->primaryImage()->path) : asset('images/placeholder.jpg') }}"
-                         alt="{{ $product->name }}">
-
+                    <a href="{{ route('storefront.product', $product->slug) }}">
+                        <img src="{{ $product->primaryImage() ? asset('storage/' . $product->primaryImage()->path) : asset('images/placeholder.jpg') }}"
+                             alt="{{ $product->name }}">
+                    </a>
                 </div>
 
                 <div class="product-actions">
 
-                    <button class="action-btn">
+                    <a href="{{ route('storefront.product', $product->slug) }}" class="action-btn">
                         <i class="fas fa-eye"></i>
-                    </button>
+                    </a>
 
                     <button class="action-btn">
                         <i class="far fa-heart"></i>
                     </button>
 
-                    <button class="action-btn">
+                    <button class="action-btn" wire:click="addToCart({{ $product->id }})">
                         <i class="fas fa-shopping-bag"></i>
                     </button>
 
@@ -1387,10 +1391,7 @@
 
                 <div class="product-info">
 
-                    <h3>
-                        {{ $product->name }}
-                        - {{ $product->weight }} Carat
-                    </h3>
+                    <h3><a href="{{ route('storefront.product', $product->slug) }}" style="text-decoration:none; color:inherit;">{{ $product->name }}-{{$product->weight_unit}}</a></h3>
 
                     <p>
                         SKU:
@@ -1414,63 +1415,7 @@
 
         </div>
 
-           <div class="products-grid">
 
-            @foreach($products as $product)
-
-            <div class="product-card">
-
-                <div class="product-image">
-
-                    <img src="{{ $product->primaryImage() ? asset('storage/' . $product->primaryImage()->path) : asset('images/placeholder.jpg') }}"
-                         alt="{{ $product->name }}">
-
-                </div>
-
-                <div class="product-actions">
-
-                    <button class="action-btn">
-                        <i class="fas fa-eye"></i>
-                    </button>
-
-                    <button class="action-btn">
-                        <i class="far fa-heart"></i>
-                    </button>
-
-                    <button class="action-btn">
-                        <i class="fas fa-shopping-bag"></i>
-                    </button>
-
-                </div>
-
-                <div class="product-info">
-
-                    <h3>
-                        {{ $product->name }}
-                        - {{ $product->weight }} Carat
-                    </h3>
-
-                    <p>
-                        SKU:
-                        {{ $product->sku ?? 'N/A' }}
-                    </p>
-
-                    <p>
-                        Origin :
-                        {{ $product->origin ?? 'N/A' }}
-                    </p>
-
-                    <div class="price">
-                        ₹{{ number_format($product->price,2) }}
-                    </div>
-
-                </div>
-
-            </div>
-
-            @endforeach
-
-        </div>
 
     </div>
 </section>
@@ -1480,213 +1425,213 @@
     .products-section{
     padding:60px 0;
     background:#fafafa;
-}
-
-.products-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:30px;
-}
-
-.product-card{
-    background:#fff;
-    border-radius:18px;
-    padding:20px;
-    text-align:center;
-    transition:.35s;
-    border:1px solid #eee;
-}
-
-.product-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 40px rgba(0,0,0,.08);
-}
-
-.product-image{
-    height:240px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.product-image img{
-    max-width:100%;
-    max-height:210px;
-    object-fit:contain;
-    transition:.4s;
-}
-
-.product-card:hover img{
-    transform:scale(1.05);
-}
-
-.product-actions{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin:18px 0;
-}
-
-.action-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:50%;
-    background:#f5f5f5;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.action-btn:hover{
-    background:#111;
-    color:#fff;
-}
-
-.product-info h3{
-    font-size:16px;
-    margin-bottom:8px;
-    line-height:1.5;
-}
-
-.product-info p{
-    margin:4px 0;
-    color:#666;
-    font-size:14px;
-}
-
-.price{
-    font-size:22px;
-    font-weight:700;
-    margin-top:10px;
-}
-
-/* Modal */
-
-.quick-view-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    z-index:9999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.quick-view-modal{
-    width:950px;
-    max-width:95%;
-    background:#fff;
-    border-radius:20px;
-    padding:35px;
-    position:relative;
-}
-
-.close-btn{
-    position:absolute;
-    right:20px;
-    top:15px;
-    border:none;
-    background:none;
-    font-size:30px;
-    cursor:pointer;
-}
-
-.modal-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-}
-
-.modal-left{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.modal-left img{
-    max-width:100%;
-    max-height:420px;
-    object-fit:contain;
-}
-
-.modal-right h2{
-    font-size:34px;
-    margin-bottom:10px;
-}
-
-.sku{
-    color:#777;
-    margin-bottom:15px;
-}
-
-.modal-price{
-    font-size:36px;
-    font-weight:700;
-    margin-bottom:20px;
-}
-
-.description{
-    color:#555;
-    line-height:1.8;
-    margin-bottom:25px;
-}
-
-.qty-box{
-    display:flex;
-    width:150px;
-    margin-top:10px;
-}
-
-.qty-box button{
-    width:45px;
-    border:none;
-    background:#f1f1f1;
-}
-
-.qty-box input{
-    width:60px;
-    text-align:center;
-    border:1px solid #ddd;
-}
-
-.add-cart-btn{
-    margin-top:25px;
-    background:#2d3748;
-    color:#fff;
-    border:none;
-    padding:14px 35px;
-    border-radius:8px;
-    font-weight:600;
-}
-
-.delivery-time{
-    margin-top:20px;
-    color:#666;
-}
-
-.delivery-time span{
-    color:#dc3545;
-}
-
-@media(max-width:991px){
+    }
 
     .products-grid{
-        grid-template-columns:repeat(2,1fr);
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:30px;
+    }
+
+    .product-card{
+        background:#fff;
+        border-radius:18px;
+        padding:20px;
+        text-align:center;
+        transition:.35s;
+        border:1px solid #eee;
+    }
+
+    .product-card:hover{
+        transform:translateY(-8px);
+        box-shadow:0 20px 40px rgba(0,0,0,.08);
+    }
+
+    .product-image{
+        height:240px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .product-image img{
+        max-width:100%;
+        max-height:210px;
+        object-fit:contain;
+        transition:.4s;
+    }
+
+    .product-card:hover img{
+        transform:scale(1.05);
+    }
+
+    .product-actions{
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        margin:18px 0;
+    }
+
+    .action-btn{
+        width:38px;
+        height:38px;
+        border:none;
+        border-radius:50%;
+        background:#f5f5f5;
+        cursor:pointer;
+        transition:.3s;
+    }
+
+    .action-btn:hover{
+        background:#111;
+        color:#fff;
+    }
+
+    .product-info h3{
+        font-size:16px;
+        margin-bottom:8px;
+        line-height:1.5;
+    }
+
+    .product-info p{
+        margin:4px 0;
+        color:#666;
+        font-size:14px;
+    }
+
+    .price{
+        font-size:22px;
+        font-weight:700;
+        margin-top:10px;
+    }
+
+    /* Modal */
+
+    .quick-view-overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.6);
+        z-index:9999;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .quick-view-modal{
+        width:950px;
+        max-width:95%;
+        background:#fff;
+        border-radius:20px;
+        padding:35px;
+        position:relative;
+    }
+
+    .close-btn{
+        position:absolute;
+        right:20px;
+        top:15px;
+        border:none;
+        background:none;
+        font-size:30px;
+        cursor:pointer;
     }
 
     .modal-grid{
-        grid-template-columns:1fr;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:40px;
     }
 
-}
-
-@media(max-width:576px){
-
-    .products-grid{
-        grid-template-columns:1fr;
+    .modal-left{
+        display:flex;
+        justify-content:center;
+        align-items:center;
     }
 
-}
+    .modal-left img{
+        max-width:100%;
+        max-height:420px;
+        object-fit:contain;
+    }
+
+    .modal-right h2{
+        font-size:34px;
+        margin-bottom:10px;
+    }
+
+    .sku{
+        color:#777;
+        margin-bottom:15px;
+    }
+
+    .modal-price{
+        font-size:36px;
+        font-weight:700;
+        margin-bottom:20px;
+    }
+
+    .description{
+        color:#555;
+        line-height:1.8;
+        margin-bottom:25px;
+    }
+
+    .qty-box{
+        display:flex;
+        width:150px;
+        margin-top:10px;
+    }
+
+    .qty-box button{
+        width:45px;
+        border:none;
+        background:#f1f1f1;
+    }
+
+    .qty-box input{
+        width:60px;
+        text-align:center;
+        border:1px solid #ddd;
+    }
+
+    .add-cart-btn{
+        margin-top:25px;
+        background:#2d3748;
+        color:#fff;
+        border:none;
+        padding:14px 35px;
+        border-radius:8px;
+        font-weight:600;
+    }
+
+    .delivery-time{
+        margin-top:20px;
+        color:#666;
+    }
+
+    .delivery-time span{
+        color:#dc3545;
+    }
+
+    @media(max-width:991px){
+
+        .products-grid{
+            grid-template-columns:repeat(2,1fr);
+        }
+
+        .modal-grid{
+            grid-template-columns:1fr;
+        }
+
+    }
+
+    @media(max-width:576px){
+
+        .products-grid{
+            grid-template-columns:1fr;
+        }
+
+    }
 </style>
 
 <script>

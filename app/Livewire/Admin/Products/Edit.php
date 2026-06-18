@@ -83,6 +83,13 @@ class Edit extends Component
 
         $data = $this->form;
         
+        // Ensure empty strings for numeric/nullable fields are converted to null
+        foreach (['sale_price', 'weight', 'metal_id', 'brand_id'] as $nullableField) {
+            if (isset($data[$nullableField]) && $data[$nullableField] === '') {
+                $data[$nullableField] = null;
+            }
+        }
+        
         $data['category_id'] = null;
         $data['sub_category_id'] = null;
         $data['sub_sub_category_id'] = null;

@@ -17,8 +17,21 @@
                         <div class="col-md-3">
                             <label class="form-label">Images (Multiple)</label>
                             <input type="file" wire:model="images" multiple class="form-control">
+                            @if(isset($product) && $product->images->count() > 0)
+                                <div class="mt-2 d-flex flex-wrap gap-2">
+                                    @foreach($product->images as $image)
+                                        <div class="position-relative" style="width: 50px; height: 50px;">
+                                            <img src="{{ asset('storage/' . $image->path) }}" class="img-thumbnail w-100 h-100 object-fit-cover">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <label class="form-label">Video URL</label>
+                            <input type="text" wire:model="form.video_url" class="form-control" placeholder="YouTube/Vimeo link">
+                        </div>
+                        <div class="col-md-3">
                             <label class="form-label">Category</label>
                             <select wire:model.live="selected_category" class="form-select">
                                 <option value="">Select</option>

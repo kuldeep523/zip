@@ -11,7 +11,7 @@
             @foreach($orders as $order)
                 <tr>
                     <td>{{ $order->order_number }}</td>
-                    <td>{{ $order->user?->name ?? 'Guest' }}</td>
+                    <td>{{ $order->user?->name ?? ($order->billing_address['name'] ?? 'Guest') }}</td>
                     <td><span class="badge bg-secondary">{{ $order->status?->label() }}</span></td>
                     <td>{{ $order->payment_method?->label() ?? '-' }}</td>
                     <td>₹{{ number_format($order->total, 2) }}</td>

@@ -75,7 +75,7 @@ class Create extends Component
     public function save(): void
     {
         $this->authorize('products.create');
-        $validated = $this->validate([
+        $this->validate([
             'form.name' => 'required|string|max:255',
             'form.sku' => 'required|string|unique:products,sku',
             'form.price' => 'required|numeric|min:0',
@@ -83,7 +83,14 @@ class Create extends Component
             'form.status' => 'required|in:'.implode(',', array_column(ProductStatus::cases(), 'value')),
         ]);
 
-        $data = $validated['form'];
+        $data = $this->form;
+        
+        // Ensure empty strings for numeric/nullable fields are converted to null
+        foreach (['sale_price', 'weight', 'metal_id', 'brand_id'] as $nullableField) {
+            if (isset($data[$nullableField]) && $data[$nullableField] === '') {
+                $data[$nullableField] = null;
+            }
+        }
         
         $data['category_id'] = null;
         $data['sub_category_id'] = null;

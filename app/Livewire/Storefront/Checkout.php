@@ -100,6 +100,12 @@ class Checkout extends Component
                 'unit_price' => $item['price'],
                 'total' => $item['price'] * $item['qty'],
             ]);
+
+            // Decrement Product Stock
+            $product = \App\Models\Product::find($id);
+            if ($product) {
+                $product->decrement('stock_quantity', $item['qty']);
+            }
         }
 
         $this->orderId = $order->order_number;

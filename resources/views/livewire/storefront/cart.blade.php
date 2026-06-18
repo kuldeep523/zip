@@ -25,7 +25,7 @@
                         <div class="card mb-3 border-0 border-bottom rounded-0 pb-3">
                             <div class="row g-0 align-items-center">
                                 <div class="col-3">
-                                    <img src="{{ asset($item['image_path']) }}" class="img-fluid rounded-3 border" alt="{{ $item['name'] }}">
+                                    <img src="{{ !empty($item['image_path']) ? asset('storage/' . $item['image_path']) : asset('images/placeholder.jpg') }}" class="img-fluid rounded-3 border" alt="{{ $item['name'] }}">
                                 </div>
                                 <div class="col-9 ps-3">
                                     <div class="d-flex justify-content-between align-items-start">

@@ -101,7 +101,7 @@ class Product extends Model
 
     public function primaryImage(): ?ProductImage
     {
-        return $this->images()->where('is_primary', true)->first()
-            ?? $this->images()->first();
+        return $this->images->where('is_primary', true)->first()
+            ?? $this->images->first();
     }
 }

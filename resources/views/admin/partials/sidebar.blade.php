@@ -17,6 +17,9 @@
         @can('brands.view')
         <li><a class="nav-link text-white-50 {{ request()->routeIs('admin.brands.*') ? 'active bg-primary' : '' }}" href="{{ route('admin.brands.index') }}"><i class="bi bi-award me-2"></i>Brands</a></li>
         @endcan
+        @role('Super Admin|Admin')
+        <li><a class="nav-link text-white-50 {{ request()->routeIs('admin.carts.*') ? 'active bg-primary' : '' }}" href="{{ route('admin.carts.index') }}"><i class="bi bi-bag-x me-2"></i>Carts</a></li>
+        @endrole
         @can('orders.view')
         <li><a class="nav-link text-white-50 {{ request()->routeIs('admin.orders.*') ? 'active bg-primary' : '' }}" href="{{ route('admin.orders.index') }}"><i class="bi bi-cart-check me-2"></i>Orders</a></li>
         @endcan

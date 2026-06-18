@@ -14,6 +14,12 @@ class GemstonesDetailpage extends Component
     #[Url]
     public $category = '';
 
+    public function addToCart($id)
+    {
+        $this->dispatch('addToCart', id: $id);
+        session()->flash('message', 'Product added to cart successfully!');
+    }
+
     public function render()
     {
         $currentCategory = null;
@@ -36,6 +42,7 @@ class GemstonesDetailpage extends Component
             // Get products associated with this category or its subcategories
             $products = Product::where('category_id', $currentCategory->id)
                 ->orWhere('sub_category_id', $currentCategory->id)
+                ->orWhere('sub_sub_category_id', $currentCategory->id)
                 ->with(['images', 'category', 'subCategory'])
                 ->take(12)
                 ->get();

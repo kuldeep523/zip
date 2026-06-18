@@ -37,185 +37,314 @@
 <body x-data="{ cartOpen: false }" @toggle-cart.window="cartOpen = !cartOpen">
 
     {{-- RR GEMS & JEWELS — Header | Bootstrap-first, minimal custom CSS --}}
+<style>
+    :root {
+        --rr-orange: #f59e0b;
+        --rr-orange-dark: #ea580c;
+        --rr-blue: #1a5fa8;
+        --rr-blue-dark: #1e40af;
+        --rr-white: #ffffff;
+        --rr-text: #1f2937;
+        --rr-red: #D0201A;
+        --rr-gold: #C9922A;
+        --rr-green: #1e7e34;
+    }
 
-    <style>
-        :root {
-            --rr-orange: #f59e0b;
-            --rr-orange-dark: #ea580c;
-            --rr-blue: #2563eb;
-            --rr-blue-dark: #1e40af;
-            --rr-white: #ffffff;
-            --rr-text: #1f2937;
-            --rr-red: #D0201A;
-            --rr-gold: #e8a800;
-            --rr-green: #1e7e34;
-            --rr-blue: #1a5fa8;
-        }
-
-        /* =========================
+    /* =========================
        ANNOUNCEMENT BAR
     ========================== */
-        .rr-announcement-bar {
-            background: linear-gradient(135deg,
-                    var(--rr-blue-dark) 0%,
-                    var(--rr-blue) 55%,
-                    var(--rr-orange) 100%);
-            position: relative;
-            overflow: hidden;
-        }
+    .rr-announcement-bar {
+        background: linear-gradient(135deg,
+                var(--rr-blue-dark) 0%,
+                var(--rr-blue) 55%,
+                var(--rr-orange) 100%);
+        position: relative;
+        overflow: hidden;
+    }
 
-        .rr-announcement-bar::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg,
-                    rgba(255, 255, 255, .18),
-                    rgba(255, 255, 255, .05),
-                    transparent);
-            pointer-events: none;
-        }
+    .rr-announcement-bar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg,
+                rgba(255, 255, 255, .18),
+                rgba(255, 255, 255, .05),
+                transparent);
+        pointer-events: none;
+    }
 
-        .rr-announcement-bar a,
-        .rr-announcement-bar span {
-            position: relative;
-            z-index: 2;
-        }
+    .rr-announcement-bar a,
+    .rr-announcement-bar span {
+        position: relative;
+        z-index: 2;
+    }
 
-        .rr-announcement-bar a {
-            color: #fff;
-            text-decoration: none;
-            transition: .3s;
-        }
+    .rr-announcement-bar a {
+        color: #fff;
+        text-decoration: none;
+        transition: .3s;
+    }
 
-        .rr-announcement-bar a:hover {
-            opacity: .85;
-        }
+    .rr-announcement-bar a:hover {
+        opacity: .85;
+    }
 
-        /* =========================
+    /* =========================
        NAVBAR COLORS
     ========================== */
+    .nav-bar-custom .nav-link {
+        color: var(--rr-text) !important;
+        font-size: .82rem;
+        transition: all .25s ease;
+        white-space: nowrap;
+    }
 
-        .nav-bar-custom .nav-link {
-            color: var(--rr-text) !important;
-            font-size: .82rem;
-            transition: all .25s ease;
+    .nav-bar-custom .nav-link:hover,
+    .nav-bar-custom .nav-link.active {
+        color: var(--rr-blue) !important;
+    }
+
+    .nav-bar-custom .nav-link.active {
+        border-bottom: 2px solid var(--rr-orange);
+    }
+
+    /* Search Focus */
+    .rr-search-group:focus-within {
+        border-color: var(--rr-blue) !important;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, .12) !important;
+    }
+
+    /* Premium Top Stripe */
+    .rr-rainbow {
+        height: 4px;
+        background: linear-gradient(90deg,
+                var(--rr-blue-dark) 0%,
+                var(--rr-blue) 50%,
+                var(--rr-orange) 100%);
+    }
+
+    /* Logo */
+    .logo-svg {
+        width: 40px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    /* Mobile Toggle */
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%232563eb' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    /* =========================
+       MEGA MENU — GEMSTONES
+    ========================== */
+    .mega-dropdown-gemstones {
+        position: static !important;
+    }
+
+    .mega-menu-gemstones {
+        position: absolute !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        border-top: 3px solid var(--rr-gold) !important;
+        border-radius: 0 !important;
+        padding: 1.5rem 0 !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,.10) !important;
+        margin-top: 0 !important;
+        z-index: 1050 !important;
+    }
+
+    .mega-section-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #1a1a1a;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--rr-gold);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mega-link {
+        display: block;
+        padding: 4px 0;
+        font-size: 13px;
+        color: #444;
+        text-decoration: none;
+        transition: color .2s, padding-left .2s;
+        line-height: 1.5;
+    }
+
+    .mega-link:hover {
+        color: var(--rr-gold);
+        padding-left: 6px;
+    }
+
+    .mega-view-all {
+        display: inline-block;
+        margin-top: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--rr-blue);
+        text-decoration: none;
+        letter-spacing: 0.04em;
+    }
+
+    .mega-view-all:hover {
+        color: var(--rr-gold);
+    }
+
+    /* =========================
+       MEGA MENU — JEWELLERY (fixed-position two-panel flyout)
+    ========================== */
+
+    .mega-dropdown-jewellery {
+        position: static !important;
+    }
+
+    /* Outer left-panel box — position:fixed, coords set by JS on open */
+    .jwl-outer {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        min-width: 220px !important;
+        background: #fff !important;
+        border: 1px solid #e0e0e0 !important;
+        border-top: 3px solid var(--rr-gold) !important;
+        border-radius: 0 0 4px 4px !important;
+        box-shadow: 4px 8px 28px rgba(0,0,0,.13) !important;
+        padding: 4px 0 !important;
+        z-index: 9999 !important;
+        display: none;
+        /* no overflow hidden — sub-panel must escape */
+    }
+
+    .jwl-outer.open {
+        display: block !important;
+    }
+
+    /* Each category row */
+    .jwl-cat-row {
+        position: relative;
+    }
+
+    .jwl-cat-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #222;
+        cursor: pointer;
+        transition: background .12s, border-color .12s;
+        border-left: 3px solid transparent;
+        gap: 32px;
+        user-select: none;
+        white-space: nowrap;
+    }
+
+    .jwl-cat-label:hover,
+    .jwl-cat-row.active > .jwl-cat-label {
+        background: #f7f7f7;
+        border-left-color: var(--rr-gold);
+    }
+
+    .jwl-arrow {
+        font-size: 9px;
+        color: #bbb;
+        flex-shrink: 0;
+        transition: color .12s;
+    }
+
+    .jwl-cat-row.active > .jwl-cat-label .jwl-arrow,
+    .jwl-cat-label:hover .jwl-arrow {
+        color: var(--rr-gold);
+    }
+
+    /* Sub-panel — fixed position, coords set by JS */
+    .jwl-sub-panel {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        min-width: 250px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-top: 3px solid var(--rr-gold);
+        border-radius: 0 0 4px 4px;
+        box-shadow: 6px 8px 28px rgba(0,0,0,.12);
+        padding: 4px 0;
+        z-index: 10000;
+        display: none;
+    }
+
+    .jwl-cat-row.active > .jwl-sub-panel {
+        display: block;
+    }
+
+    .jwl-sub-link {
+        display: block;
+        padding: 11px 20px;
+        font-size: 14px;
+        color: #333;
+        text-decoration: none;
+        transition: background .1s, color .1s;
+        white-space: nowrap;
+    }
+
+    .jwl-sub-link:hover {
+        background: #f7f7f7;
+        color: #111;
+    }
+
+    /* =========================
+       RESPONSIVE — mobile
+    ========================== */
+    @media (max-width: 991.98px) {
+
+        .mega-menu-gemstones {
+            position: relative !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            border-top: none !important;
+            border-left: 3px solid var(--rr-gold) !important;
+            margin-left: 0.5rem;
         }
 
-        .nav-bar-custom .nav-link:hover,
-        .nav-bar-custom .nav-link.active {
-            color: var(--rr-blue) !important;
+        .mega-menu-gemstones .row > [class*="col-"] {
+            margin-bottom: 1rem;
         }
 
-        .nav-bar-custom .nav-link.active {
-            border-bottom: 2px solid var(--rr-orange);
+        /* On mobile the outer panel is not fixed — it sits inline */
+        .jwl-outer {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-left: 3px solid var(--rr-gold) !important;
+            border-top: none !important;
+            margin-left: 0.5rem;
         }
 
-        /* Search Focus */
-        .rr-search-group:focus-within {
-            border-color: var(--rr-blue) !important;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .12) !important;
+        .jwl-sub-panel {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-left: 3px solid #eee !important;
+            border-top: none !important;
+            padding-left: 0.5rem;
         }
-
-        /* Mega Menu */
-        .mega-menu-dropdown {
-            border-top: 3px solid var(--rr-orange) !important;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, .08);
-        }
-
-        .mega-title {
-            color: var(--rr-blue);
-            font-size: .72rem;
-            letter-spacing: .15em;
-            text-transform: uppercase;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 6px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .mega-list a {
-            font-size: .85rem;
-            color: #4b5563;
-            transition: .25s ease;
-        }
-
-        .mega-list a:hover {
-            color: var(--rr-blue);
-            padding-left: 4px;
-        }
-
-        .mega-new-tag {
-            font-size: .6rem;
-            background: linear-gradient(135deg,
-                    var(--rr-orange),
-                    var(--rr-orange-dark));
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 5px;
-            vertical-align: middle;
-        }
-
-        /* Premium Top Stripe */
-        .rr-rainbow {
-            height: 4px;
-            background: linear-gradient(90deg,
-                    var(--rr-blue-dark) 0%,
-                    var(--rr-blue) 50%,
-                    var(--rr-orange) 100%);
-        }
-
-        /* Logo */
-        .logo-svg {
-            width: 40px;
-            height: 36px;
-            flex-shrink: 0;
-        }
-
-        /* Mobile Toggle */
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%232563eb' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-        }
-
-        .mega-menu {
-            width: 700px;
-            border-top: 2px solid #C9922A !important;
-            border-radius: 0;
-            padding: 1.5rem 2rem;
-        }
-
-        .mega-heading {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #333;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #e5e5e5;
-            margin-bottom: 12px;
-        }
-
-        .mega-link {
-            display: block;
-            padding: 5px 0;
-            font-size: 13px;
-            color: #555;
-            text-decoration: none;
-        }
-
-        .mega-link:hover {
-            color: #C9922A;
-        }
-
-        .mega-view-all {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #C9922A;
-            text-decoration: none;
-        }
-    </style>
+    }
+</style>
 
     <!-- PREMIUM TOP STRIPE -->
     <div class="rr-rainbow"></div>
@@ -310,127 +439,247 @@
     <div class="rr-rainbow"></div>
 
     {{-- ── MAIN NAVIGATION ── --}}
-    <nav class="navbar navbar-expand-lg bg-white border-bottom nav-bar-custom p-0">
-        <div class="container">
-            <button class="navbar-toggler my-2 border" type="button"
-                data-bs-toggle="collapse" data-bs-target="#storeNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+  
+<nav class="navbar navbar-expand-lg bg-white border-bottom nav-bar-custom p-0 position-relative">
+    <div class="container-fluid px-lg-4">
 
-            <div class="collapse navbar-collapse" id="storeNavbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <button class="navbar-toggler my-2 border" type="button"
+            data-bs-toggle="collapse" data-bs-target="#storeNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                    <li class="nav-item">
-                        <a class="nav-link px-3 py-3 {{ Request::is('/') ? 'active fw-semibold' : '' }}"
-                            href="{{ url('/') }}">Home</a>
-                    </li>
+        <div class="collapse navbar-collapse" id="storeNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li class="nav-item dropdown position-static">
-                        <a class="nav-link dropdown-toggle px-3 py-3" href="#"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Gemstone Jewellery
-                        </a>
-                        <div class="dropdown-menu w-100 mega-menu-dropdown border-0 shadow rounded-0 p-4">
-                            <div class="container">
-                                <div class="mb-3 border-bottom pb-2">
-                                    <a href="{{ url('/Gemstone-detailpage?category=jewellery') }}" class="fw-bold text-navy text-decoration-none">View All Jewellery &rarr;</a>
-                                </div>
-                                <div class="row g-0">
-                                    @php 
-                                        $jewelleryCat = \App\Models\Category::where('name', 'Jewellery')->with('children.children')->first(); 
-                                    @endphp
-                                    @if($jewelleryCat)
-                                        @foreach($jewelleryCat->children as $child)
-                                        <div class="col-md-3 p-2">
-                                            <h6 class="mega-title fw-semibold"><a href="{{ url('/Gemstone-detailpage?category='.$child->slug) }}" class="text-dark text-decoration-none">{{ $child->name }}</a></h6>
-                                            @if($child->children->count())
-                                            <ul class="list-unstyled mega-list mt-2">
-                                                @foreach($child->children as $subChild)
-                                                <li class="mb-1">
-                                                    <a href="{{ url('/Gemstone-detailpage?category='.$subChild->slug) }}" class="text-decoration-none">{{ $subChild->name }}</a>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                            @endif
-                                        </div>
+                {{-- HOME --}}
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-3 {{ Request::is('/') ? 'active fw-semibold' : '' }}"
+                        href="{{ url('/') }}">Home</a>
+                </li>
+
+                {{-- GEMSTONES mega menu --}}
+                {{-- GEMSTONES mega menu --}}
+                @if(isset($gemstonesCategory) && $gemstonesCategory)
+                <li class="nav-item dropdown mega-dropdown-gemstones">
+                    <a class="nav-link px-3 py-3 dropdown-toggle"
+                        href="{{ url('/Gemstone-detailpage?category=' . $gemstonesCategory->slug) }}"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{ $gemstonesCategory->name }}
+                    </a>
+
+                    <div class="dropdown-menu mega-menu-gemstones">
+                        <div class="container-fluid px-lg-4">
+                            <div class="row g-0">
+
+                                @foreach($gemstonesCategory->children as $child)
+                                <div class="col-6 col-md-3 col-lg p-3">
+                                    <div class="mega-section-title">
+                                        {{ $child->name }}
+                                    </div>
+                                    <ul class="list-unstyled mb-0">
+                                        @foreach($child->children as $subChild)
+                                        <li><a class="mega-link" href="{{ url('/Gemstone-detailpage?category=' . $subChild->slug) }}">{{ $subChild->name }}</a></li>
                                         @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link px-3 py-3"
-                            href="{{ url('/Gems-recommendation') }}">Gems recommendation</a>
-                    </li>
-
-                    <li class="nav-item dropdown mega-dropdown">
-                        <a class="nav-link px-3 py-3 dropdown-toggle"
-                            href="#" id="gemsDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Gemstones
-                        </a>
-
-                        <div class="dropdown-menu mega-menu p-4" aria-labelledby="gemsDropdown">
-                            <div class="row">
-
-                                {{-- Column 1: By Navratna --}}
-                                <div class="col-md-4 mega-col">
-                                    <h6 class="mega-heading"><a href="{{ url('/Gemstone-detailpage?category=gemstones') }}" class="text-dark text-decoration-none">View All Gemstones &rarr;</a></h6>
-                                    <ul class="list-unstyled">
-                                        @php 
-                                            $gemstoneCat = \App\Models\Category::where('name', 'Gemstones')->with('children')->first(); 
-                                        @endphp
-                                        @if($gemstoneCat)
-                                            @foreach($gemstoneCat->children as $child)
-                                            <li><a class="mega-link" href="{{ url('/Gemstone-detailpage?category='.$child->slug) }}">{{ $child->name }}</a></li>
-                                            @endforeach
+                                        @if($child->children->isEmpty())
+                                        <li><a class="mega-link" href="{{ url('/Gemstone-detailpage?category=' . $child->slug) }}">View {{ $child->name }}</a></li>
                                         @endif
                                     </ul>
                                 </div>
+                                @endforeach
 
+                            </div>{{-- /row --}}
+                        </div>{{-- /container --}}
+                    </div>{{-- /mega-menu-gemstones --}}
+                </li>
+                @endif
 
+                {{-- JEWELLERY two-panel flyout --}}
+                @if(isset($jewelleryCategory) && $jewelleryCategory)
+                <li class="nav-item mega-dropdown-jewellery" id="jwlDropdown">
+                    <a class="nav-link px-3 py-3 dropdown-toggle"
+                        href="{{ url('/Gemstone-detailpage?category=' . $jewelleryCategory->slug) }}"
+                        id="jwlToggle">
+                        {{ $jewelleryCategory->name }}
+                    </a>
+
+                    {{-- Outer box: left panel (category list) --}}
+                    <div class="jwl-outer" id="jwlOuter">
+
+                        @foreach($jewelleryCategory->children as $child)
+                        <div class="jwl-cat-row" data-cat="{{ $child->slug }}">
+                            <div class="jwl-cat-label">
+                                {{ $child->name }} <span class="jwl-arrow">&#9654;</span>
+                            </div>
+                            <div class="jwl-sub-panel">
+                                @foreach($child->children as $subChild)
+                                <a class="jwl-sub-link" href="{{ url('/Gemstone-detailpage?category=' . $subChild->slug) }}">{{ $subChild->name }}</a>
+                                @endforeach
+                                @if($child->children->isEmpty())
+                                <a class="jwl-sub-link" href="{{ url('/Gemstone-detailpage?category=' . $child->slug) }}">View All {{ $child->name }}</a>
+                                @endif
                             </div>
                         </div>
-                    </li>
+                        @endforeach
 
-                    <li class="nav-item">
-                        <a class="nav-link px-3 py-3"
-                            href="{{ url('/contact-us') }}">Contact us</a>
-                    </li>
+                    </div>{{-- /jwl-outer --}}
+                </li>
+                @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link px-3 py-3"
-                            href="{{ url('/About-us') }}">About us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-3 py-3"
-                            href="{{ url('/Privacy-Policy') }}">Privacy Policy</a>
-                    </li>
+                {{-- GEMS RECOMMENDATION --}}
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-3"
+                        href="{{ url('/Gems-recommendation') }}">Gems Recommendation</a>
+                </li>
 
-                      <li class="nav-item">
-                        <a class="nav-link px-3 py-3"
-                            href="{{ url('/Shipping-Policy') }}"> Shipping Policy</a>
-                    </li>
+                {{-- CONTACT US --}}
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-3"
+                        href="{{ url('/contact-us') }}">Contact Us</a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link px-3 py-3"
-                            href="{{ route('storefront.blog') }}">Blogs</a>
-                    </li>
+                {{-- ABOUT US --}}
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-3"
+                        href="{{ url('/About-us') }}">About Us</a>
+                </li>
 
-                </ul>
+                {{-- BLOGS --}}
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-3"
+                        href="{{ route('storefront.blog') }}">Blogs</a>
+                </li>
 
-                <!-- <div class="d-none d-lg-flex align-items-center gap-3 small text-muted">
-                <span><i class="bi bi-truck text-rr-gold me-1"></i>{{ $navShippingText }}</span>
-                <span><i class="bi bi-shield-check text-rr-green me-1"></i>{{ $navSecureText }}</span>
-            </div> -->
-            </div>
-        </div>
-    </nav>
+            </ul>
+        </div>{{-- /navbar-collapse --}}
+    </div>{{-- /container --}}
+</nav>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    var isMobile    = window.innerWidth < 992;
+    var jwlDropdown = document.getElementById('jwlDropdown');
+    var jwlToggle   = document.getElementById('jwlToggle');
+    var jwlOuter    = document.getElementById('jwlOuter');
+    var catRows     = jwlDropdown ? Array.prototype.slice.call(jwlDropdown.querySelectorAll('.jwl-cat-row')) : [];
+
+    if (!jwlToggle || !jwlOuter) return;
+
+    /* ── Position outer panel using fixed coords from navbar rect ── */
+    function positionOuter() {
+        if (isMobile) return;
+        var rect = jwlToggle.getBoundingClientRect();
+        jwlOuter.style.top  = rect.bottom + 'px';
+        jwlOuter.style.left = rect.left + 'px';
+    }
+
+    /* ── Position sub-panel beside the hovered row ── */
+    function positionSubPanel(row) {
+        if (isMobile) return;
+        var sub  = row.querySelector('.jwl-sub-panel');
+        if (!sub) return;
+        var outerRect = jwlOuter.getBoundingClientRect();
+        var rowRect   = row.getBoundingClientRect();
+        sub.style.top  = rowRect.top + 'px';
+        sub.style.left = outerRect.right + 'px';
+    }
+
+    /* ── Open / close outer panel ── */
+    jwlToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        var isOpen = jwlOuter.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+            positionOuter();
+            jwlOuter.classList.add('open');
+        }
+    });
+
+    /* ── Hover rows to show sub-panel ── */
+    catRows.forEach(function (row) {
+        row.addEventListener('mouseenter', function () {
+            if (isMobile) return;
+            catRows.forEach(function (r) { r.classList.remove('active'); });
+            row.classList.add('active');
+            positionSubPanel(row);
+        });
+
+        /* Mobile: tap label to toggle sub-panel */
+        var label = row.querySelector('.jwl-cat-label');
+        if (label) {
+            label.addEventListener('click', function (e) {
+                if (!isMobile) return;
+                e.stopPropagation();
+                var wasActive = row.classList.contains('active');
+                catRows.forEach(function (r) { r.classList.remove('active'); });
+                if (!wasActive) row.classList.add('active');
+            });
+        }
+    });
+
+    /* Keep sub-panel visible while mouse is inside it */
+    catRows.forEach(function (row) {
+        var sub = row.querySelector('.jwl-sub-panel');
+        if (!sub) return;
+        sub.addEventListener('mouseenter', function () {
+            catRows.forEach(function (r) { r.classList.remove('active'); });
+            row.classList.add('active');
+        });
+        sub.addEventListener('mouseleave', function (e) {
+            /* only deactivate if cursor left both sub-panel AND the row */
+            var toEl = e.relatedTarget;
+            if (toEl && (row.contains(toEl) || sub.contains(toEl))) return;
+            row.classList.remove('active');
+        });
+    });
+
+    /* Remove active when cursor leaves the left panel (but not into a sub-panel) */
+    jwlOuter.addEventListener('mouseleave', function (e) {
+        if (isMobile) return;
+        var toEl = e.relatedTarget;
+        /* if moving into a sub-panel, keep active */
+        var intoSub = catRows.some(function (r) {
+            var s = r.querySelector('.jwl-sub-panel');
+            return s && s.contains(toEl);
+        });
+        if (!intoSub) {
+            catRows.forEach(function (r) { r.classList.remove('active'); });
+        }
+    });
+
+    /* ── Close everything ── */
+    function closeAll() {
+        jwlOuter.classList.remove('open');
+        catRows.forEach(function (r) { r.classList.remove('active'); });
+    }
+
+    document.addEventListener('click', function (e) {
+        /* ignore clicks inside outer panel or any sub-panel */
+        if (jwlDropdown.contains(e.target)) return;
+        var inSub = catRows.some(function (r) {
+            var s = r.querySelector('.jwl-sub-panel');
+            return s && s.contains(e.target);
+        });
+        if (!inSub) closeAll();
+    });
+
+    /* Re-position on scroll/resize so fixed coords stay correct */
+    window.addEventListener('scroll', function () {
+        if (jwlOuter.classList.contains('open')) {
+            positionOuter();
+            catRows.forEach(function (r) {
+                if (r.classList.contains('active')) positionSubPanel(r);
+            });
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', function () {
+        isMobile = window.innerWidth < 992;
+        closeAll();
+    });
+});
+</script>
     <!-- Page Content -->
     <main>
         {{ $slot }}

@@ -21,8 +21,8 @@ use App\Livewire\Admin\Seo\GlobalSettings as SeoGlobalSettings;
 use App\Livewire\Admin\Settings\CmsPages as CmsPagesIndex;
 use App\Livewire\Admin\Shipping\Index as ShippingIndex;
 use App\Livewire\Admin\Storefront\ContentHub as StorefrontContentHub;
+use App\Livewire\Admin\Carts\Index as CartIndex;
 use Illuminate\Support\Facades\Route;
-
 Route::get('/', Dashboard::class)->name('dashboard');
 Route::get('/storefront', StorefrontContentHub::class)->name('storefront.hub');
 
@@ -46,4 +46,5 @@ Route::get('/banners', BannerIndex::class)->name('banners.index')->middleware('p
 Route::get('/cms-pages', CmsPagesIndex::class)->name('cms.index')->middleware('permission:cms.view');
 Route::get('/seo', SeoGlobalSettings::class)->name('seo.global')->middleware('permission:seo.manage');
 Route::get('/roles', RoleIndex::class)->name('roles.index')->middleware('role:Super Admin|Admin');
+Route::get('/carts', CartIndex::class)->name('carts.index')->middleware('role:Super Admin|Admin');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

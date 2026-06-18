@@ -12,8 +12,22 @@ class GemThemeComposer
     {
         $layout = StorefrontContentService::layoutData();
         $seo = GlobalSeoSetting::first();
+        
+        $gemstonesCategory = \App\Models\Category::where('slug', 'gemstones')->where('is_active', true)->with(['children' => function($q) {
+            $q->where('is_active', true)->orderBy('sort_order')->with(['children' => function($q) {
+                $q->where('is_active', true)->orderBy('sort_order');
+            }]);
+        }])->first();
+
+        $jewelleryCategory = \App\Models\Category::where('slug', 'jewellery')->where('is_active', true)->with(['children' => function($q) {
+            $q->where('is_active', true)->orderBy('sort_order')->with(['children' => function($q) {
+                $q->where('is_active', true)->orderBy('sort_order');
+            }]);
+        }])->first();
 
         $view->with(array_merge($layout, [
+            'gemstonesCategory' => $gemstonesCategory,
+            'jewelleryCategory' => $jewelleryCategory,
             'siteSeo' => $seo,
             'announcementText' => StorefrontContentService::setting('announcement_text', '100% Gov. Approved Lab Certified Gemstones'),
             'phone' => StorefrontContentService::setting('phone', '+91 98765 43210'),

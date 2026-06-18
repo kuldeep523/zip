@@ -140,7 +140,7 @@
                             @foreach($cartItems as $item)
                                 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
                                     <div class="d-flex align-items-center gap-3">
-                                        <img src="{{ asset($item['image_path']) }}" class="img-fluid rounded border bg-light" style="width: 50px; height: 50px; object-fit: cover;" alt="{{ $item['name'] }}">
+                                        <img src="{{ !empty($item['image_path']) ? asset('storage/' . $item['image_path']) : asset('images/placeholder.jpg') }}" class="img-fluid rounded border bg-light" style="width: 50px; height: 50px; object-fit: cover;" alt="{{ $item['name'] }}">
                                         <div>
                                             <h4 class="h6 mb-0 text-navy fw-bold">{{ $item['name'] }}</h4>
                                             <small class="text-muted">{{ $item['weight'] }} {{ $item['weight_unit'] }} &bull; Qty: {{ $item['qty'] }}</small>

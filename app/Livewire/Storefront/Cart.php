@@ -24,6 +24,47 @@ class Cart extends Component
     {
         $this->cartItems = session()->get('cart', []);
         $this->calculateSubtotal();
+        $this->syncCartToDatabase();
+    }
+
+    private function syncCartToDatabase()
+    {
+        $sessionId = session()->getId();
+        
+        if (empty($this->cartItems)) {
+            \Illuminate\Support\Facades\DB::table('abandoned_carts')
+                ->where('session_id', $sessionId)
+                ->delete();
+            return;
+        }
+
+        $userId = auth()->id();
+        $email = auth()->check() ? auth()->user()->email : null;
+        $total = collect($this->cartItems)->sum(function ($item) {
+            return $item['price'] * $item['qty'];
+        });
+
+        $exists = \Illuminate\Support\Facades\DB::table('abandoned_carts')
+            ->where('session_id', $sessionId)
+            ->exists();
+
+        $data = [
+            'user_id' => $userId,
+            'email' => $email,
+            'cart_data' => json_encode($this->cartItems),
+            'total' => $total,
+            'updated_at' => now(),
+        ];
+
+        if ($exists) {
+            \Illuminate\Support\Facades\DB::table('abandoned_carts')
+                ->where('session_id', $sessionId)
+                ->update($data);
+        } else {
+            $data['session_id'] = $sessionId;
+            $data['created_at'] = now();
+            \Illuminate\Support\Facades\DB::table('abandoned_carts')->insert($data);
+        }
     }
 
     public function addItem($id, $qty = 1)
